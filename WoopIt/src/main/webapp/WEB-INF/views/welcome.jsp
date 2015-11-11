@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Login</title>
+    <title>WoopIt</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css'/>" rel="stylesheet">
@@ -21,7 +21,6 @@
     <script src="<c:url value='/resources/assets/js/jquery.min.js'/>"></script>
     <script src="<c:url value='/resources/assets/js/smoothscroll.js'/>"></script>
     
-
   </head>
 
   <body data-spy="scroll" data-offset="0" data-target="#navigation">
@@ -36,20 +35,17 @@
 					<h3>Share your thoughts!</h3>
 					<br>
 	    		</div>
-	    		
 	    		<div class="col-lg-2">
 	    			<h5>What is it</h5>
 	    			<p>WoopIt connects you with other people around you. Cool isn't it?</p>
 	    		</div>
 				<div class="col-lg-1"></div>
-	    		<div class="col-lg-6">
-	    				
+	    		<div class="col-lg-6">	
 					<div class="panel panel-default">
 						<div class="panel-body">
-						 <img src="https://ergomag.files.wordpress.com/2014/06/facebook-worldb.jpg" />
+							<img src="https://ergomag.files.wordpress.com/2014/06/facebook-worldb.jpg" />
 						</div>
-				</div>
-					
+					</div>
 	    		</div>
 	    		<div class="col-lg-2">
 	    			<br>

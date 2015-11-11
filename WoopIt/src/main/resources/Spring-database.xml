@@ -8,8 +8,8 @@
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://83.212.116.34:3306/woopit" />
-		<property name="username" value="woopit" />
-		<property name="password" value="seng2" />
+		<property name="username" value="" />
+		<property name="password" value="" />
 	</bean>
 	
 </beans>

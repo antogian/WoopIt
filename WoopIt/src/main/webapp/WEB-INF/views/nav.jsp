@@ -24,14 +24,15 @@
 	        <!-- SHOW USER MENU IF LOGGED IN -->
 			<sec:authorize access="hasRole('USER')" >
 	    	<ul class="nav navbar-nav navbar-right">
-		        <li><a href="#">Messages</a></li>
+		        <li><a href="<c:url value='/user/inbox' />">Inbox</a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a></li>
-		            <li><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a></li>
-		            <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;History</a></li>
-		            <li><a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;Settings</a></li>
+		            <li><a href="<c:url value='/user/friendlist' />"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a></li>
+		            <li><a href="<c:url value='/user/editprofile' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a></li>
+		            <li><a href="<c:url value='/user/setavatar' />"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;&nbsp;Avatar</a></li>
+		            <li><a href="<c:url value='/user/history' />"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;&nbsp;History</a></li>
+		            <li><a href="<c:url value='/user/settings' />"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;Settings</a></li>
 		            <li role="separator" class="divider"></li>
 		            <li><a href="<c:url value='/user/logout' />"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;&nbsp;Logout</a></li>
 		          </ul>

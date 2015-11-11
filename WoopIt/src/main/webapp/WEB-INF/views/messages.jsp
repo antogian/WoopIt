@@ -21,7 +21,6 @@
 							<input type="text" name="message" class="form-control" placeholder="Text input">
 							<br/>
 							<input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!">
-							<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 						</form>
 					</div>
 				</div>

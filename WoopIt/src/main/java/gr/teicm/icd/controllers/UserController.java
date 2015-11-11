@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.data.services.UserService;
@@ -29,14 +30,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String createUserPOST(@ModelAttribute User user)
+	public String createUserPOST(@ModelAttribute User user, RedirectAttributes redirectAttributes)
 	{
-		userService.insertUser(user);
-		return "register";
+		boolean success = userService.insertUser(user);
+		redirectAttributes.addFlashAttribute("userName", user.getUserName());
+		if(success==true)
+			return "redirect:registerSuccess";
+		else
+			return "redirect:registerFailed";
 	}
 	
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
+
         return "login";
     }
  
@@ -49,4 +55,63 @@ public class UserController {
         return "redirect:/user/login?logout";
     }
     
+    @RequestMapping(value="/registerSuccess", method=RequestMethod.GET) 
+    public String successView(HttpServletRequest request){ 
+
+    	return "registerSuccess"; 
+    }
+    
+    @RequestMapping(value="/registerFailed", method=RequestMethod.GET) 
+    public String failedView(HttpServletRequest request){ 
+
+    	return "registerFailed"; 
+    }
+    
+    @RequestMapping(value="/viewprofile", method=RequestMethod.GET) 
+    public String profileView(){ 
+
+    	return "viewprofile"; 
+    }
+    
+    @RequestMapping(value="/editprofile", method=RequestMethod.GET) 
+    public String editProfileView(){ 
+
+    	return "editprofile"; 
+    }
+    
+    @RequestMapping(value="/setavatar", method=RequestMethod.GET) 
+    public String setAvatarView(){ 
+
+    	return "setavatar"; 
+    }
+    /*
+    @RequestMapping(value="/setavatar", method=RequestMethod.POST) 
+    public String setAvatarViewPOST(){ 
+
+    	return "setavatar"; 
+    }*/
+    
+    @RequestMapping(value="/friendlist", method=RequestMethod.GET) 
+    public String friendlistView(){ 
+
+    	return "friendlist"; 
+    }
+    
+    @RequestMapping(value="/history", method=RequestMethod.GET) 
+    public String historyView(){ 
+
+    	return "history"; 
+    }
+    
+    @RequestMapping(value="/settings", method=RequestMethod.GET) 
+    public String settingsView(){ 
+
+    	return "settings"; 
+    }
+    
+    @RequestMapping(value="/inbox", method=RequestMethod.GET) 
+    public String inboxView(){ 
+
+    	return "inbox"; 
+    }
 }

@@ -46,6 +46,32 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
+	public void insertRole(User user){
+		
+		String sql = "INSERT INTO USER_ROLES " +
+				"(USER_NAME, USER_ROLE) VALUES (?, ?)";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getUserName());
+			ps.setString(2, "ROLE_USER");
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
 	public User findByUserId(Long userId){
 		
 		String sql = "SELECT * FROM USERS WHERE USER_ID = ?";

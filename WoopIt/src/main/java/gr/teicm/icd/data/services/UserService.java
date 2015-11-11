@@ -12,14 +12,18 @@ public class UserService {
 
 	}
 	
-	public void insertUser(User user){
+	public Boolean insertUser(User user){
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
     	UserDAO userDAO = (UserDAO) context.getBean("userDAO");
     	
     	// Check if the username already exist in the DB
-    	if(userDAO.checkIfUserNameExist(user.getUserName())==false)
+    	if(userDAO.checkIfUserNameExist(user.getUserName())==false){
     		userDAO.insert(user);
+    		userDAO.insertRole(user);
+    		return true;
+    	}
     	else
-    		System.out.println("user already exist");
+    		return false;
+    		
 	}
 }

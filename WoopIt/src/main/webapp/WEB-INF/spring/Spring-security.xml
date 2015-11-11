@@ -8,8 +8,14 @@
         <intercept-url pattern="/" access="permitAll" />
         <intercept-url pattern="/home/**" access="hasRole('USER')" />
         <intercept-url pattern="/user/profile/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/friendlist/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/editprofile/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/setavatar/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/history/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/settings/**" access="hasRole('USER')" />
         <form-login login-page="/user/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/Access_Denied" />
-        <csrf/>
+        <!--enable csrf security with <csrf/>  -->
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager >

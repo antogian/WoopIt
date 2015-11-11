@@ -77,7 +77,6 @@
 								  <a class="btn btn-lg btn-success" href="<c:url value='/user/register'/>" role="button">Sign up</a>
 								</div>
 							  </div>
-							  <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 						</form>
 					</div>
 				</div>

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Support</title>
+    <title>WoopIt - Register</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -28,18 +28,17 @@
 
 	<jsp:include page="nav.jsp" />
 
+
 	<!-- INTRO WRAP -->
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1>Support</h1>
-				<hr>
-				<br>
-				<div class="col-lg-4">
-				</div>
-				<div class="col-lg-6">
-				</div>
-				<div class="col-lg-4">
+				<div class="alert alert-success" role="alert">
+					<h1>User account created</h1>
+					<hr>
+					Hello ${userName}. Your details stored in our database.
+					<br/>
+					You can login with your credentials <a class="alert-link" href="<c:url value='/user/login'/>">here</a>.
 				</div>
 			</div>
 			<br>

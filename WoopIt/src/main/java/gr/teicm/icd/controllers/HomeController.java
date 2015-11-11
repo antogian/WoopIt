@@ -72,4 +72,5 @@ public class HomeController {
 		return "home";
 	}
 
+	public String asd(){return "asd";}
 }

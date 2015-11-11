@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Support</title>
+    <title>WoopIt - History</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -32,17 +32,19 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1>Support</h1>
+				<h1><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;&nbsp;History</h1>
 				<hr>
 				<br>
 				<div class="col-lg-4">
 				</div>
 				<div class="col-lg-6">
+				
 				</div>
 				<div class="col-lg-4">
 				</div>
 			</div>
 			<br>
+			
 	    </div> <!--/ .container -->
 	</div><!--/ #introwrap -->
 	
