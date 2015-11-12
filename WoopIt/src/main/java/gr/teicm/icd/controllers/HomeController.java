@@ -71,6 +71,4 @@ public class HomeController {
 		model.addAttribute("allMessages", this.allMessages);
 		return "home";
 	}
-
-	public String asd(){return "asd";}
 }
