@@ -137,4 +137,81 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 	}
+	
+	public void insertPhotoPath(User user){
+		String sql = "UPDATE USERS " + "SET USER_PHOTO = ? " + "WHERE USER_NAME = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getUserPhotoPath());
+			ps.setString(2, user.getUserName());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	public String getPhotoPath(String userName){
+		
+		String sql = "SELECT USER_PHOTO FROM USERS WHERE USER_NAME = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, userName);
+			String photoPath = null;
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				photoPath = rs.getString("USER_PHOTO");
+			}
+			rs.close();
+			ps.close();
+			return photoPath;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}
+	}
+	
+    public void removePhoto(User user){
+		String sql = "UPDATE USERS " + "SET USER_PHOTO = ? " + "WHERE USER_NAME = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, "default.png");
+			ps.setString(2, user.getUserName());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+    }
 }

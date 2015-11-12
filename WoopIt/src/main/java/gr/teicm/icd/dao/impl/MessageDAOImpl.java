@@ -18,7 +18,6 @@ public class MessageDAOImpl implements MessageDAO{
 		this.dataSource = dataSource;
 	}
 	
-	
 	//TODO MESSAGE_USER_ID must be fetched by Sender attribute of Message
 	public void insertMessage(Message message){
 		String sqlQuery = "INSERT INTO MESSAGES " + 
@@ -80,14 +79,5 @@ public class MessageDAOImpl implements MessageDAO{
 		}
 		
 	}
-	
-	/*private User getSender(Message message){
-		String sqlQuery1 = "SELECT MESSAGE_USER_ID FROM MESSAGES WHERE MESSAGE_ID = ?";
-		String sqlQuery2 = "SELECT USER_NAME FROM USERS WHERE USER_ID =?";
-		Connection conn = null;
-		try{
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sqlQuery1);
-		}
-	}*/
+
 }

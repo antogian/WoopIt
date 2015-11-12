@@ -8,6 +8,7 @@ public class User {
 	private String userEmail;
 	private String userSex;
 	private String userCountry;
+	private String userPhotoPath;
 	
 	public Long getUserId(){
 		return userId;
@@ -49,6 +50,13 @@ public class User {
 	}
 	public void setUserCountry(String userCountry){
 		this.userCountry = userCountry;
+	}
+	
+	public String getUserPhotoPath(){
+		return userPhotoPath;
+	}
+	public void setUserPhotoPath(String userPhotoPath){
+		this.userPhotoPath = userPhotoPath;
 	}
 	
 	@Override

@@ -79,18 +79,6 @@ public class UserController {
     	return "editprofile"; 
     }
     
-    @RequestMapping(value="/setavatar", method=RequestMethod.GET) 
-    public String setAvatarView(){ 
-
-    	return "setavatar"; 
-    }
-    /*
-    @RequestMapping(value="/setavatar", method=RequestMethod.POST) 
-    public String setAvatarViewPOST(){ 
-
-    	return "setavatar"; 
-    }*/
-    
     @RequestMapping(value="/friendlist", method=RequestMethod.GET) 
     public String friendlistView(){ 
 
