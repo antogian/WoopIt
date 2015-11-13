@@ -24,7 +24,7 @@ public class UserControllerTest extends UserController {
 		//Then
 		Assert.assertTrue(createUser().equals(path));
 	}
-
+/*
 	@Test
 	public void shouldReturnRegisterPOSTPath()
 	{
@@ -40,7 +40,7 @@ public class UserControllerTest extends UserController {
 		//Then
 		Assert.assertTrue(createUserPOST(user, redirectAttributes).equals(path));
 	}
-
+*/
 	@Test
 	public void shouldReturnLoginPath()
 	{
