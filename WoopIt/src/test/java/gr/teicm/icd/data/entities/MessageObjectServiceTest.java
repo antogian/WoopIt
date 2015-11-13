@@ -233,4 +233,18 @@ public class MessageObjectServiceTest {
 		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
 	}
 	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry5()
+	{
+		//Given
+		String country = "England";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
 }
