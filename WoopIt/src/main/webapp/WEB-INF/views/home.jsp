@@ -55,8 +55,8 @@
 							    </a>
 							  </div>
 							  <div class="media-body text-left">
-							  USERNAME says:  <br/>
-							  <c:out value="${message.content}"/>
+							  <c:out value="${message.sender.userName}"/> says:<br/>
+							  <c:out value="${message.body}"/>
 							  </div>
 							</div>
 						</div>

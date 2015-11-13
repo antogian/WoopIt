@@ -90,6 +90,7 @@ public class UserDAOImpl implements UserDAO {
 				user.setUserEmail(rs.getString("USER_EMAIL"));
 				user.setUserSex(rs.getString("USER_SEX"));
 				user.setUserCountry(rs.getString("USER_COUNTRY"));
+				user.setUserPhotoPath(rs.getString("USER_PHOTO"));
 			}
 			rs.close();
 			ps.close();

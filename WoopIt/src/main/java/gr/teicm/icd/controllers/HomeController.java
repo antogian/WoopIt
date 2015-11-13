@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gr.teicm.icd.data.entities.Message;
-import gr.teicm.icd.data.services.MessageService;;
+import gr.teicm.icd.data.services.MessageService;
+import gr.teicm.icd.data.services.UserService;;
 
 @Controller
 public class HomeController {
@@ -20,6 +21,8 @@ public class HomeController {
 	
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/")
 	public String goIndex()
@@ -45,17 +48,10 @@ public class HomeController {
 		return "support";
 	}
 	
-	@RequestMapping("/home")
-	public String goHome()
-	{
-		return "home";
-	}
-	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String displayAllMessages(Model model)
 	{
 		this.allMessages = this.messageService.getAllMessages();
-		//System.out.println(this.allMessages.get(0).getContent());
 		model.addAttribute("allMessages", this.allMessages);
 		return "home";
 	}
@@ -64,11 +60,12 @@ public class HomeController {
 	public String postMessage(@RequestParam("message") String msg, Model model)
 	{
 		Message newMessage = new Message();
-		newMessage.setContent(msg);
-		
-		this.messageService.insertMessage(newMessage);
+		newMessage.setBody(msg);
+		newMessage.getSender().setUserName(this.userService.getLoggedInUsername());
+		Long id = this.messageService.getIdFromDb(newMessage.getSender().getUserName());
+		this.messageService.insertMessage(newMessage, id);
 		this.allMessages = this.messageService.getAllMessages();
-		model.addAttribute("allMessages", this.allMessages);
-		return "home";
+		model.addAttribute("AllMessages", this.allMessages);
+		return "redirect:/home";
 	}
 }

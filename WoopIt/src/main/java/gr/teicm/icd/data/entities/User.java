@@ -58,12 +58,4 @@ public class User {
 	public void setUserPhotoPath(String userPhotoPath){
 		this.userPhotoPath = userPhotoPath;
 	}
-	
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userPass=" + userPass + ", userEmail="
-				+ userEmail + ", userSex=" + userSex + ", userCountry=" + userCountry + "]";
-	}
-	
-
 }
