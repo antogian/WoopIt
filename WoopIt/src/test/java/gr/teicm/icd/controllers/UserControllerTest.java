@@ -1,18 +1,12 @@
 package gr.teicm.icd.controllers;
 
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import gr.teicm.icd.data.entities.User;
-
-
 
 public class UserControllerTest extends UserController {
 

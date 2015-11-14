@@ -1,7 +1,5 @@
 package gr.teicm.icd.data.entities;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -58,7 +58,7 @@
 	</div><!--/ #headerwrap -->
 
 
-	<section id="desc" name="desc"></section>
+	<section id="desc"></section>
 	<!-- INTRO WRAP -->
 	<div id="intro">
 		<div class="container">
