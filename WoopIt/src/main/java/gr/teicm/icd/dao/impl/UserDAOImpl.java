@@ -107,6 +107,44 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
+	public User getUserByName(String userName){
+	String sqlQuery = "SELECT * FROM USERS WHERE USER_NAME = ?";
+	Connection conn = null;
+	
+	try{
+		conn = dataSource.getConnection();
+		PreparedStatement ps = conn.prepareStatement(sqlQuery);
+		ps.setString(1, userName);
+		ResultSet rs = ps.executeQuery();
+		User user = new User();
+		if(rs.next()){
+			user.setUserId(rs.getLong("USER_ID"));
+			user.setUserName(rs.getString("USER_NAME"));
+			user.setUserPass(rs.getString("USER_PASS"));
+			user.setUserEmail(rs.getString("USER_EMAIL"));
+			user.setUserSex(rs.getString("USER_SEX"));
+			user.setUserCountry(rs.getString("USER_COUNTRY"));
+			user.setUserPhotoPath(rs.getString("USER_PHOTO"));
+		}
+		ps.close();
+		rs.close();
+		return user;
+	}
+	catch (SQLException e){
+		throw new RuntimeException(e);
+	}
+	finally{
+		if(conn != null){
+			try{
+				conn.close();
+			}
+			catch(SQLException e){
+				System.out.println("");
+			}
+		}
+	}
+}
+	
 	public Boolean checkIfUserNameExist(String userName){
 		
 		String sql = "SELECT * FROM USERS WHERE USER_NAME = ?";

@@ -6,9 +6,7 @@ import gr.teicm.icd.data.entities.Message;
 
 public interface MessageDAO {
 	
-	public void insertMessage(Message message, Long id);
+	public void insertMessage(Message message);
 	
 	public List<Message> getAllMessages();
-	
-	public Long getUserIdByUserName(String userName);
 }

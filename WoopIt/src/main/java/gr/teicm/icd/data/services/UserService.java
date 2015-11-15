@@ -4,6 +4,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import gr.teicm.icd.dao.MessageDAO;
 import gr.teicm.icd.dao.UserDAO;
 import gr.teicm.icd.data.entities.User;
 
@@ -25,6 +26,13 @@ public class UserService {
 	    	}
 	    	else
 	    		return false;
+		}
+	}
+	
+	public User getUserByName(String userName){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.getUserByName(userName);
 		}
 	}
 	

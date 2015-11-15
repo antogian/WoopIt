@@ -16,5 +16,7 @@ public interface UserDAO {
      
     public User findByUserId(Long userId);
     
+    public User getUserByName(String userName);
+    
     public Boolean checkIfUserNameExist(String userName);
 }

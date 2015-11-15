@@ -14,10 +14,10 @@ public class MessageService {
 		
 	}
 	
-	public void insertMessage(Message message, Long id){
+	public void insertMessage(Message message){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
-			messageDAO.insertMessage(message, id);
+			messageDAO.insertMessage(message);
 		}
 	}
 	
@@ -28,10 +28,10 @@ public class MessageService {
 		}
 	}
 	
-	public Long getUserIdByUserName(String userName){
+	/*public Long getUserIdByUserName(String userName){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
 			return messageDAO.getUserIdByUserName(userName);
 		}
-	}
+	}*/
 }

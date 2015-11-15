@@ -93,7 +93,7 @@ public class UserController {
     
     @RequestMapping(value="/settings", method=RequestMethod.GET) 
     public String settingsView(){ 
-
+    	
     	return "settings"; 
     }
     

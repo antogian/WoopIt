@@ -35,9 +35,8 @@ public class MessageController {
 	{
 		Message newMessage = new Message();
 		newMessage.setBody(msg);
-		newMessage.getSender().setUserName(this.userService.getLoggedInUsername());
-		Long id = this.messageService.getUserIdByUserName(newMessage.getSender().getUserName());
-		this.messageService.insertMessage(newMessage, id);
+		newMessage.setSender(this.userService.getUserByName(this.userService.getLoggedInUsername()));
+		this.messageService.insertMessage(newMessage);
 		this.allMessages = this.messageService.getAllMessages();
 		model.addAttribute("allMessages", this.allMessages);
 		return "redirect:/home";

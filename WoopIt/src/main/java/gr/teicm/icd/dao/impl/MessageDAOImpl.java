@@ -14,7 +14,7 @@ public class MessageDAOImpl implements MessageDAO{
 		this.dataSource = dataSource;
 	}
 	
-	public void insertMessage(Message message, Long id){
+	public void insertMessage(Message message){
 		String sqlQuery = "INSERT INTO MESSAGES " + 
 						"(MESSAGE_USER_ID, MESSAGE_BODY) " +
 						"VALUES(?, ?)";
@@ -24,7 +24,7 @@ public class MessageDAOImpl implements MessageDAO{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			
-			ps.setString(1, Long.toString(id));
+			ps.setString(1, Long.toString(message.getSender().getUserId()));
 			ps.setString(2, message.getBody());
 			ps.executeUpdate();
 			ps.close();
@@ -81,7 +81,7 @@ public class MessageDAOImpl implements MessageDAO{
 		
 	}
 	
-	public Long getUserIdByUserName(String userName){
+	/*public Long getUserIdByUserName(String userName){
 		String sqlQuery = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
 		Connection conn = null;
 		
@@ -114,5 +114,5 @@ public class MessageDAOImpl implements MessageDAO{
 				}
 			}
 		}
-	}
+	}*/
 }
