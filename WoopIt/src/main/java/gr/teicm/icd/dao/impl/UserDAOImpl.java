@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 	public void insert(User user){
 		
 		String sql = "INSERT INTO USERS " +
-				"(USER_NAME, USER_PASS, USER_EMAIL, USER_SEX, USER_COUNTRY) VALUES (?, ?, ?, ?, ?)";
+				"(USER_NAME, USER_PASS, USER_EMAIL, USER_SEX, USER_COUNTRY, USER_PHOTO) VALUES (?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		
 		try {
@@ -31,6 +31,7 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(3, user.getUserEmail());
 			ps.setString(4, user.getUserSex());
 			ps.setString(5, user.getUserCountry());
+			ps.setString(6, user.getUserPhotoPath());
 			ps.executeUpdate();
 			ps.close();
 			
