@@ -10,5 +10,5 @@ public interface MessageDAO {
 	
 	public List<Message> getAllMessages();
 	
-	public Long getIdFromDb(String userName);
+	public Long getUserIdByUserName(String userName);
 }

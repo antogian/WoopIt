@@ -81,7 +81,7 @@ public class MessageDAOImpl implements MessageDAO{
 		
 	}
 	
-	public Long getIdFromDb(String userName){
+	public Long getUserIdByUserName(String userName){
 		String sqlQuery = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
 		Connection conn = null;
 		

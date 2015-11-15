@@ -28,10 +28,10 @@ public class MessageService {
 		}
 	}
 	
-	public Long getIdFromDb(String userName){
+	public Long getUserIdByUserName(String userName){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
-			return messageDAO.getIdFromDb(userName);
+			return messageDAO.getUserIdByUserName(userName);
 		}
 	}
 }
