@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Register</title>
+    <title>WoopIt -Profile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -54,11 +54,13 @@
 					
 					<p class="text-left">Sex:<c:out value="${currentUser.userSex}"/> </p>
 				</div>
-				<div class="col-lg-4">
-					<p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;Send Private Message</p>
-					<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Add to Friendlist</p>
-					<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Block User</p>
-				</div>
+				<c:if test="${isLoggedIn == false}">
+					<div class="col-lg-4">
+						<p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;Send Private Message</p>
+						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Add to Friendlist</p>
+						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Block User</p>
+					</div>
+				</c:if>
 			</div>
 			<br/>
 	    </div> <!--/ .container -->

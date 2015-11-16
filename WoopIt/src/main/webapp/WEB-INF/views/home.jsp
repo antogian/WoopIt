@@ -55,7 +55,8 @@
 							    </a>
 							  </div>
 							  <div class="media-body text-left">
-							  <c:out value="${message.sender.userName}"/> says:<br/>
+							  <c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}">class="active"</c:if>
+							  	<a href="<c:url value='/viewprofile?name=${message.sender.userName}' />"><c:out value="${message.sender.userName}"/></a> says:<br/>
 							  <c:out value="${message.body}"/>
 							  </div>
 							</div>
