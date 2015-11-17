@@ -67,4 +67,11 @@ public class UserService {
 	    	userDAO.removePhoto(user);
     	}
     }
+    
+	public void addFriend(User currentUser, User friendUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			userDAO.addFriend(currentUser, friendUser);
+		}
+	}
 }

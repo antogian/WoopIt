@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	
     @RequestMapping(value="/viewprofile", method=RequestMethod.GET) 
-    public String profileView(@RequestParam("name") String name, Model model){ 
+    public String goProfileView(@RequestParam("name") String name, Model model){ 
 
     	if (name.equals(this.userService.getLoggedInUsername())){
         	User currentUser = this.userService.getUserByName(name);

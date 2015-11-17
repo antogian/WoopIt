@@ -9,6 +9,7 @@ import gr.teicm.icd.data.entities.*;
 
 public class MessageService {
 
+	UserService userService;
 	
 	public MessageService(){
 		
@@ -28,10 +29,4 @@ public class MessageService {
 		}
 	}
 	
-	/*public Long getUserIdByUserName(String userName){
-		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
-			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
-			return messageDAO.getUserIdByUserName(userName);
-		}
-	}*/
 }

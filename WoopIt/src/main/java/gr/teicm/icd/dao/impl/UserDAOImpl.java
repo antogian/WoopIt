@@ -254,4 +254,29 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
     }
+    
+    public void addFriend(User currentUser, User friendUser){
+		String sql = "INSERT INTO FRIENDS " +
+				"(FRIENDS_USER_ID, FRIENDS_USER_FRIEND_ID) VALUES (?, ?)";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(friendUser.getUserId()));
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+    }
 }

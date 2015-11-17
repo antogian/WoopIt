@@ -18,5 +18,9 @@ public interface UserDAO {
     
     public User getUserByName(String userName);
     
+    public void addFriend(User currentUser, User friendUser);
+    
+    //public void blockUser(User user);
+    
     public Boolean checkIfUserNameExist(String userName);
 }
