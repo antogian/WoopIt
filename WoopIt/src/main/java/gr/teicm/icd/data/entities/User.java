@@ -9,6 +9,9 @@ public class User {
 	private String userSex;
 	private String userCountry;
 	private String userPhotoPath;
+	private double userLatitude;
+	private double userLongitude;
+	private int userRadius;
 	
 	public Long getUserId(){
 		return userId;
@@ -57,5 +60,26 @@ public class User {
 	}
 	public void setUserPhotoPath(String userPhotoPath){
 		this.userPhotoPath = userPhotoPath;
+	}
+	
+	public double getUserLatitude(){
+		return userLatitude;
+	}
+	public void setUserLatitude(double userLatitude){
+		this.userLatitude = userLatitude;
+	}
+	
+	public double getUserLongitude(){
+		return userLongitude;
+	}
+	public void setUserLongitude(double userLongitude){
+		this.userLongitude = userLongitude;
+	}
+	
+	public int getUserRadius(){
+		return userRadius;
+	}
+	public void setUserRadius(int userRadius){
+		this.userRadius = userRadius;
 	}
 }

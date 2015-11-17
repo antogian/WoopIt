@@ -69,6 +69,12 @@
 				<div class="col-lg-4">
 				</div>
 				<div class="col-lg-4">
+				<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
 				</div>
 				<div class="col-lg-4">
 				</div>

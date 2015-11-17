@@ -16,7 +16,7 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li <c:if test="${url=='/WoopIt/WEB-INF/views/home.jsp'}">class="active"</c:if>><a href="<c:url value='/home' />" class="smothscroll">Home</a></li>
+	            <li <c:if test="${url=='/WoopIt/WEB-INF/views/home.jsp'}">class="active"</c:if>><a href="<c:url value='/trackme' />" class="smothscroll">Enter WoopIt</a></li>
 	            <li <c:if test="${url=='/WoopIt/WEB-INF/views/howto.jsp'}">class="active"</c:if>><a href="<c:url value='/howto' />" class="smothScroll">How it works</a></li>
 	            <li <c:if test="${url=='/WoopIt/WEB-INF/views/support.jsp'}">class="active"</c:if>><a href="<c:url value='/support' />" class="smothScroll">Support</a></li>
 	          </ul>
@@ -24,7 +24,7 @@
 	        <!-- SHOW USER MENU IF LOGGED IN -->
 			<sec:authorize access="hasRole('USER')" >
 	    	<ul class="nav navbar-nav navbar-right">
-		        <li><a href="<c:url value='/user/inbox' />">Inbox</a></li>
+		        <li><a href="<c:url value='/user/inbox' />">Inbox <span class="badge">5</span></a></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 		          <ul class="dropdown-menu">

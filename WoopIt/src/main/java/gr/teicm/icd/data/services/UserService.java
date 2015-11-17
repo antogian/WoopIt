@@ -4,7 +4,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import gr.teicm.icd.dao.MessageDAO;
 import gr.teicm.icd.dao.UserDAO;
 import gr.teicm.icd.data.entities.User;
 

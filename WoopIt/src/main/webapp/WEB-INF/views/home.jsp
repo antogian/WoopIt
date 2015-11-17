@@ -20,11 +20,10 @@
     
     <script src="<c:url value='/resources/assets/js/jquery.min.js' />"></script>
     <script src="<c:url value='/resources/assets/js/smoothscroll.js' />"></script>
-    
 
   </head>
 
-  <body data-spy="scroll" data-offset="0" data-target="#navigation">
+  <body data-spy="scroll" data-offset="0" data-target="#navigation" onload="geoloc()">
 
 	<jsp:include page="nav.jsp" />
 
@@ -34,16 +33,6 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1>Welcome to the WoopIt ${user}</h1>
-				<hr>
-				<div class="panel panel-primary">
-				      <div class="panel-heading">
-				        <h3 class="panel-title">Your current location</h3>
-				      </div>
-				      <div class="panel-body">
-				        google map location
-				      </div>
-				</div>
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<c:forEach items="${allMessages}" var="message">

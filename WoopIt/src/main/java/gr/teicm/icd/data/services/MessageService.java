@@ -1,7 +1,9 @@
 package gr.teicm.icd.data.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import gr.teicm.icd.dao.*;
@@ -9,6 +11,10 @@ import gr.teicm.icd.data.entities.*;
 
 public class MessageService {
 
+	@Autowired
+	GeolocationService geolocationService;
+	@Autowired
+	UserService userService;
 	
 	public MessageService(){
 		
@@ -28,10 +34,4 @@ public class MessageService {
 		}
 	}
 	
-	/*public Long getUserIdByUserName(String userName){
-		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
-			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
-			return messageDAO.getUserIdByUserName(userName);
-		}
-	}*/
 }
