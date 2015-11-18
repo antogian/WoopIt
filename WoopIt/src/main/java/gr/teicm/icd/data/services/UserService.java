@@ -68,19 +68,57 @@ public class UserService {
     	}
     }
     
-	public void addFriend(User currentUser, User friendUser){
+	public void addUserToFriends(User currentUser, User targetUser){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
-			userDAO.addFriend(currentUser, friendUser);
+			if(!userDAO.isFriend(currentUser, targetUser)){
+				userDAO.addUserToFriends(currentUser, targetUser);
+			}
 		}
 	}
 	
-	public void blockUser(User currentUser, User unwantedUser){
+	public void addUserToUnwanted(User currentUser, User targetUser){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
-			userDAO.blockUser(currentUser, unwantedUser);
+			if(!userDAO.isUnwanted(currentUser, targetUser)){
+				userDAO.addUserToUnwanted(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public void removeUserFromFriends(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isFriend(currentUser, targetUser)){
+				userDAO.removeUserFromFriends(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public void removeUserFromUnwanted(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isUnwanted(currentUser, targetUser)){
+				userDAO.removeUserFromUnwanted(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public Boolean isFriend(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.isFriend(currentUser, targetUser);
+		}
+	}
+	
+	public Boolean isUnwanted(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.isUnwanted(currentUser, targetUser);
 		}
 	}
 }

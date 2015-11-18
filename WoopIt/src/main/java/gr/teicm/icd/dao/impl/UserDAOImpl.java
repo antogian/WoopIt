@@ -255,7 +255,7 @@ public class UserDAOImpl implements UserDAO {
 		}
     }
     
-    public void addFriend(User currentUser, User friendUser){
+    public void addUserToFriends(User currentUser, User targetUser){
 		String sqlQuery = "INSERT INTO FRIENDS " +
 				"(FRIENDS_USER_ID, FRIENDS_USER_FRIEND_ID) VALUES (?, ?)";
 		Connection conn = null;
@@ -264,7 +264,7 @@ public class UserDAOImpl implements UserDAO {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, Long.toString(currentUser.getUserId()));
-			ps.setString(2, Long.toString(friendUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
 			ps.executeUpdate();
 			ps.close();
 			
@@ -284,7 +284,7 @@ public class UserDAOImpl implements UserDAO {
 		}
     }
     
-    public void blockUser(User currentUser, User unwantedUser){
+    public void addUserToUnwanted(User currentUser, User targetUser){
 		String sqlQuery = "INSERT INTO UNWANTED " +
 				"(UNWANTED_USER_ID, UNWANTED_BLOCKED_USER_ID) VALUES (?, ?)";
 		Connection conn = null;
@@ -293,7 +293,7 @@ public class UserDAOImpl implements UserDAO {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, Long.toString(currentUser.getUserId()));
-			ps.setString(2, Long.toString(unwantedUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
 			ps.executeUpdate();
 			ps.close();
 			
@@ -312,4 +312,127 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
     }
+    
+    public void removeUserFromFriends(User currentUser, User targetUser){
+		String sqlQuery = "DELETE FROM FRIENDS WHERE FRIENDS_USER_ID=? AND FRIENDS_USER_FRIEND_ID=?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
+			ps.executeUpdate();
+			ps.close();
+			
+		} 
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		} 
+		finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} 
+				catch (SQLException e) 
+				{}
+			}
+		}
+    }
+    
+    public void removeUserFromUnwanted(User currentUser, User targetUser){
+		String sqlQuery = "DELETE FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
+			ps.executeUpdate();
+			ps.close();
+			
+		} 
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} 
+		finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} 
+				catch (SQLException e) 
+				{}
+			}
+		}
+    }
+    
+	public Boolean isFriend(User currentUser, User targetUser){
+		
+		String sql = "SELECT * FROM FRIENDS WHERE FRIENDS_USER_ID=? AND FRIENDS_USER_FRIEND_ID=?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
+			ResultSet rs = ps.executeQuery();
+			if (rs.first()) {
+				rs.close();
+				ps.close();
+				return true;
+			}
+			else{
+				rs.close();
+				ps.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}
+	}
+	
+	public Boolean isUnwanted(User currentUser, User targetUser){
+		
+		String sql = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(targetUser.getUserId()));
+			ResultSet rs = ps.executeQuery();
+			if (rs.first()) {
+				rs.close();
+				ps.close();
+				return true;
+			}
+			else{
+				rs.close();
+				ps.close();
+				return false;
+			}
+		} 
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		} 
+		finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}
+	}
 }

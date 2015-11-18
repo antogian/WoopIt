@@ -38,7 +38,7 @@
 				<!-- Show User Profile Columns -->
 				<div class="col-lg-2">
 					<b>Username</b>
-					<c:out value="${currentUser.userName}"/>
+					<c:out value="${user.userName}"/>
 				</div>
 				<div class="col-lg-6">
 				</div>
@@ -50,15 +50,15 @@
 					<img src="${pageContext.request.contextPath}/user/avatar/${currentUser.userPhotoPath}" alt="" class="img-thumbnail">									
 				</div>
 				<div class="col-lg-6">
-					<p class="text-left">Country:<c:out value="${currentUser.userCountry}"/></p> 
+					<p class="text-left">Country:<c:out value="${user.userCountry}"/></p> 
 					
-					<p class="text-left">Sex:<c:out value="${currentUser.userSex}"/> </p>
+					<p class="text-left">Sex:<c:out value="${user.userSex}"/> </p>
 				</div>
-				<c:if test="${isLoggedIn == false}">
+				<c:if test="${isCurrentUser == false}">
 					<div class="col-lg-4">
 					    <p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;<a href="#">Send Private Message</a></p>
-						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;<a href="/viewprofile?name=${currentUser.userName}&add=true">Add to Friends</a></p>
-						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="/viewprofile?name=${currentUser.userName}&block=true">Block User</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;<a href="viewprofile?name=${user.userName}&friend=true&unwanted=false">Add to Friends</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="viewprofile?name=${user.userName}&friend=false&unwanted=true">Block User</a></p>
 				
 						<!--<p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;<a href="#">Send Private Message</a></p>
 						  <form action="<c:url value='/viewprofile'/>" method="post">

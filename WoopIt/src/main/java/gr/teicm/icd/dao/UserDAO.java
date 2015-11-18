@@ -18,9 +18,17 @@ public interface UserDAO {
     
     public User getUserByName(String userName);
     
-    public void addFriend(User currentUser, User friendUser);
+    public void addUserToFriends(User currentUser, User targetUser);
     
-    public void blockUser(User user, User unwantedUser);
+    public void addUserToUnwanted(User currentUser, User targetUser);
+    
+    public void removeUserFromFriends(User currentUser, User targetUser);
+    
+    public void removeUserFromUnwanted(User currentUser, User targetUser);
+    
+    public Boolean isFriend(User currentUser, User targetUser);
+    
+    public Boolean isUnwanted(User currentUser, User targetUser);
     
     public Boolean checkIfUserNameExist(String userName);
 }

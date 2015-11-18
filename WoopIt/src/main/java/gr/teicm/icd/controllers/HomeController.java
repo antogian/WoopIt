@@ -41,19 +41,32 @@ public class HomeController {
 	}
 	
     @RequestMapping(value="/viewprofile", method=RequestMethod.GET) 
-    public String goProfileView(@RequestParam("name") String name, Model model){ 
-
-    	if (name.equals(this.userService.getLoggedInUsername())){
-        	User currentUser = this.userService.getUserByName(name);
-        	model.addAttribute("currentUser", currentUser);
-        	model.addAttribute("isLoggedIn", true);
+    public String goProfileView(@RequestParam("name") String name, @RequestParam("friend") String friend, @RequestParam("unwanted") String unwanted, Model model){ 
+    	
+    	User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+    	
+    	if (name.equals(currentUser.getUserName())){
+        	model.addAttribute("user", currentUser);
+        	model.addAttribute("isCurrentUser", true);
+        	
+        	return "viewprofile"; 
     	}
     	else{
-        	User currentUser = this.userService.getUserByName(name);
-        	model.addAttribute("currentUser", currentUser);
-        	model.addAttribute("isLoggedIn", false);
+        	User targetUser = this.userService.getUserByName(name);
+    		model.addAttribute("user", targetUser);
+        	model.addAttribute("isCurrentUser", false);
+        	
+        	if(friend.equals("true") && unwanted.equals("false")){
+        		this.userService.addUserToFriends(currentUser, targetUser);
+        		return "viewprofile"; 
+        	}
+        	if(friend.equals("false") && unwanted.equals("true")){
+        		//this.userService.isFriend(currentUser, targetUser);
+        		this.userService.addUserToUnwanted(currentUser, targetUser);
+        		return "viewprofile"; 
+        	}
+        	
+        	return "viewprofile";
     	}
-    	
-    	return "viewprofile"; 
     }
 }
