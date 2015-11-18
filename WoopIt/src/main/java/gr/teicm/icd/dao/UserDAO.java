@@ -20,7 +20,7 @@ public interface UserDAO {
     
     public void addFriend(User currentUser, User friendUser);
     
-    //public void blockUser(User user);
+    public void blockUser(User user, User unwantedUser);
     
     public Boolean checkIfUserNameExist(String userName);
 }

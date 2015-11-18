@@ -256,26 +256,59 @@ public class UserDAOImpl implements UserDAO {
     }
     
     public void addFriend(User currentUser, User friendUser){
-		String sql = "INSERT INTO FRIENDS " +
+		String sqlQuery = "INSERT INTO FRIENDS " +
 				"(FRIENDS_USER_ID, FRIENDS_USER_FRIEND_ID) VALUES (?, ?)";
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, Long.toString(currentUser.getUserId()));
 			ps.setString(2, Long.toString(friendUser.getUserId()));
 			ps.executeUpdate();
 			ps.close();
 			
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new RuntimeException(e);
 			
-		} finally {
+		} 
+		finally {
 			if (conn != null) {
 				try {
 					conn.close();
-				} catch (SQLException e) {}
+				} 
+				catch (SQLException e) 
+				{}
+			}
+		}
+    }
+    
+    public void blockUser(User currentUser, User unwantedUser){
+		String sqlQuery = "INSERT INTO UNWANTED " +
+				"(UNWANTED_USER_ID, UNWANTED_BLOCKED_USER_ID) VALUES (?, ?)";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ps.setString(2, Long.toString(unwantedUser.getUserId()));
+			ps.executeUpdate();
+			ps.close();
+			
+		} 
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} 
+		finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} 
+				catch (SQLException e) 
+				{}
 			}
 		}
     }
