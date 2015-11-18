@@ -38,7 +38,7 @@
 				<ol class="breadcrumb">
 					<li class="active"><a href="<c:url value='/welcome' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Welcome</a></li>
 				  	<li><a href="<c:url value='/trackme' />"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;Track Your Location</a></li>
-				  	<li class="active"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;&nbsp;Woopers</li>
+				  	<li class="active"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;&nbsp;Enter WoopIt</li>
 				</ol>
 				<div class="panel panel-primary">
 				      <div class="panel-heading">

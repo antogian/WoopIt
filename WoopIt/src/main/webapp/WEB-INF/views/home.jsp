@@ -33,6 +33,11 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
+				<ol class="breadcrumb">
+					<li class="active"><a href="<c:url value='/welcome' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Welcome</a></li>
+				  	<li class="active"><a href="<c:url value='/trackme' />"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;Track Your Location</a></li>
+				  	<li class="active"><a href="<c:url value='/home' />"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;&nbsp;Enter WoopIt</a></li>
+				</ol>
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<c:forEach items="${allMessages}" var="message">
