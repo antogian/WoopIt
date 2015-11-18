@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gr.teicm.icd.data.entities.Message;
+import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.data.services.*;
 
 @Controller
@@ -21,6 +22,8 @@ public class MessageController {
 	MessageService messageService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	GeolocationService geolocationService;
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String displayAllMessages(Model model)
@@ -34,8 +37,15 @@ public class MessageController {
 	public String postMessage(@RequestParam("message") String msg, Model model)
 	{
 		Message newMessage = new Message();
+		User user = new User();
+		user = this.userService.getUserByName(this.userService.getLoggedInUsername());
+
 		newMessage.setBody(msg);
 		newMessage.setSender(this.userService.getUserByName(this.userService.getLoggedInUsername()));
+		newMessage.setMessageLatitude(user.getUserLatitude());
+		newMessage.setMessageLongitude(user.getUserLongitude());
+		newMessage.setMessageRadius(user.getUserRadius());
+		
 		this.messageService.insertMessage(newMessage);
 		this.allMessages = this.messageService.getAllMessages();
 		model.addAttribute("allMessages", this.allMessages);

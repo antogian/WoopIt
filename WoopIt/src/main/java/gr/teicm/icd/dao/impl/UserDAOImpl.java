@@ -126,6 +126,9 @@ public class UserDAOImpl implements UserDAO {
 			user.setUserSex(rs.getString("USER_SEX"));
 			user.setUserCountry(rs.getString("USER_COUNTRY"));
 			user.setUserPhotoPath(rs.getString("USER_PHOTO"));
+			user.setUserLatitude(rs.getDouble("USER_LATITUDE"));
+			user.setUserLongitude(rs.getDouble("USER_LONGITUDE"));
+			user.setUserRadius(rs.getInt("USER_RADIUS"));
 		}
 		ps.close();
 		rs.close();
@@ -254,4 +257,61 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
     }
+    
+    public void insertGeoLocation(User user){
+    	String sql = "UPDATE USERS " + "SET USER_LATITUDE = ?, USER_LONGITUDE = ?, USER_RADIUS = ? " + "WHERE USER_NAME = ?";
+    	Connection conn = null;
+    	
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setDouble(1, user.getUserLatitude());
+			ps.setDouble(2, user.getUserLongitude());
+			ps.setInt(3, user.getUserRadius());
+			ps.setString(4, user.getUserName());
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+    }
+    
+	public User getGeoLocation(String userName){
+		
+		String sql = "SELECT USER_LATITUDE, USER_LONGITUDE, USER_RADIUS FROM USERS WHERE USER_NAME = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, userName);
+			ResultSet rs = ps.executeQuery();
+			User user = new User();
+			if(rs.next()){
+				user.setUserLatitude(rs.getDouble("USER_LATITUDE"));
+				user.setUserLongitude(rs.getDouble("USER_LONGITUDE"));
+				user.setUserRadius(rs.getInt("USER_RADIUS"));
+			}
+			ps.close();
+			rs.close();
+			return user;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}
+	}
 }

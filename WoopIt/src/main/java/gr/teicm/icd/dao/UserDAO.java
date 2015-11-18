@@ -19,4 +19,8 @@ public interface UserDAO {
     public User getUserByName(String userName);
     
     public Boolean checkIfUserNameExist(String userName);
+    
+    public void insertGeoLocation(User user);
+    
+    public User getGeoLocation(String userName);
 }
