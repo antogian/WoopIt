@@ -1,5 +1,7 @@
 package gr.teicm.icd.controllers;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,36 +13,12 @@ import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.data.services.UserService;
 
 @Controller
-public class HomeController {
+public class ProfileController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping("/")
-	public String goIndex()
-	{
-		return "welcome";
-	}
-	
-	@RequestMapping("/welcome")
-	public String goWelcome()
-	{
-		return "welcome";
-	}
-	
-	@RequestMapping("/howto")
-	public String goHowto()
-	{
-		return "howto";
-	}
-	
-	@RequestMapping("/support")
-	public String goSupport()
-	{
-		return "support";
-	}
-	
-   /* @RequestMapping(value="/viewprofile", method=RequestMethod.GET) 
+    
+	@RequestMapping(value="/viewprofile", method=RequestMethod.GET) 
     public String goProfileView(@RequestParam("name") String name, @RequestParam("friend") String friend, @RequestParam("unwanted") String unwanted, Model model){ 
     	
     	User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
@@ -66,6 +44,30 @@ public class HomeController {
         	
         	return "viewprofile";
     	}
-    }*/
-
+    }
+	
+	@RequestMapping(value="friendlist", method=RequestMethod.GET) 
+	public String goFriendList(Model model){
+		
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		List<User> allFriends = new ArrayList<>();
+		allFriends = this.userService.getAllFriends(currentUser);
+		model.addAttribute("allFriends", allFriends);
+		
+		return "friendlist";
+	}
+	
+	@RequestMapping(value="unwantedlist", method=RequestMethod.GET) 
+	public String goUnwantedList(Model model){
+		
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		List<User> allUnwanted = new ArrayList<>();
+		allUnwanted = this.userService.getAllUnwanted(currentUser);
+		model.addAttribute("allUnwanted", allUnwanted);
+		
+		return "unwantedlist";
+	}
+	
 }

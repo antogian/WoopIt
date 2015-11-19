@@ -1,5 +1,7 @@
 package gr.teicm.icd.data.services;
 
+import java.util.*;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -127,4 +129,23 @@ public class UserService {
 			return userDAO.isUnwanted(currentUser, targetUser);
 		}
 	}
+	
+	public List<User> getAllFriends(User currentUser){
+		
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.getAllFriends(currentUser);
+		}
+	}
+	
+	public List<User> getAllUnwanted(User currentUser){
+		
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.getAllUnwanted(currentUser);
+		}
+	}
+	
 }

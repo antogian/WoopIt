@@ -1,5 +1,7 @@
 package gr.teicm.icd.dao;
 
+import java.util.List;
+
 import gr.teicm.icd.data.entities.User;
 
 public interface UserDAO {
@@ -29,6 +31,10 @@ public interface UserDAO {
     public Boolean isFriend(User currentUser, User targetUser);
     
     public Boolean isUnwanted(User currentUser, User targetUser);
+    
+    public List<User> getAllFriends(User currentUser);
+    
+    public List<User> getAllUnwanted(User currentUser);
     
     public Boolean checkIfUserNameExist(String userName);
 }

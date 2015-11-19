@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
- 
+
+import gr.teicm.icd.data.entities.Message;
 import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.dao.UserDAO;
 
@@ -403,12 +407,12 @@ public class UserDAOImpl implements UserDAO {
 	
 	public Boolean isUnwanted(User currentUser, User targetUser){
 		
-		String sql = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
+		String sqlQuery = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, Long.toString(currentUser.getUserId()));
 			ps.setString(2, Long.toString(targetUser.getUserId()));
 			ResultSet rs = ps.executeQuery();
@@ -432,6 +436,76 @@ public class UserDAOImpl implements UserDAO {
 				conn.close();
 				} 
 			catch (SQLException e) {}
+			}
+		}
+	}
+	
+	public List<User> getAllFriends(User currentUser){
+		List<User> allFriends = new ArrayList<>();
+		String sqlQuery = "SELECT * FROM FRIENDS WHERE FRIENDS_USER_ID=?";
+		Connection conn = null;
+		UserDAOImpl userDao = new UserDAOImpl();
+		userDao.setDataSource(this.dataSource);
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				User user = new User();
+				user.setUserId(rs.getLong("FRIENDS_USER_FRIEND_ID"));
+				user = this.findByUserId(user.getUserId());
+				allFriends.add(user);
+			}
+			ps.close();
+			return allFriends;
+		}
+		catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
+	}
+	
+	public List<User> getAllUnwanted(User currentUser){
+		List<User> allUnwanted = new ArrayList<>();
+		String sqlQuery = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=?";
+		Connection conn = null;
+		UserDAOImpl userDao = new UserDAOImpl();
+		userDao.setDataSource(this.dataSource);
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, Long.toString(currentUser.getUserId()));
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				User user = new User();
+				user.setUserId(rs.getLong("UNWANTED_BLOCKED_USER_ID"));
+				user = this.findByUserId(user.getUserId());
+				allUnwanted.add(user);
+			}
+			ps.close();
+			return allUnwanted;
+		}
+		catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
 			}
 		}
 	}

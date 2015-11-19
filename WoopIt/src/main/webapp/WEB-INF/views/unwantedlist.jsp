@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Main</title>
+    <title>WoopIt - Unwanted list</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -28,25 +28,17 @@
 
 	<jsp:include page="nav.jsp" />
 
-
-
 	<!-- INTRO WRAP -->
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1>Welcome to the WoopIt ${currentUser.userName}</h1>
+				<h1><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Your Unwanted List</h1>
 				<hr>
-				<div class="panel panel-primary">
-				      <div class="panel-heading">
-				        <h3 class="panel-title">Your current location</h3>
-				      </div>
-				      <div class="panel-body">
-				        google map location
-				      </div>
+				<br>
+				<div class="col-lg-4">
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<c:forEach items="${allMessages}" var="message">
+				<div class="col-lg-6">
+				<c:forEach items="${allUnwanted}" var="unwanted">
 						<div class="well well-sm">
 							<div class="media">
 							  <div class="media-left media-top">
@@ -56,23 +48,17 @@
 							  </div>
 							  <div class="media-body text-left">
 							  <c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}">class="active"</c:if>
-							  	<a href="<c:url value='/viewprofile?name=${message.sender.userName}&friend=false&unwanted=false' />"><c:out value="${message.sender.userName}"/></a> says:<br/>
-							  <c:out value="${message.body}"/>
+							  	<a href="<c:url value='/viewprofile?name=${unwanted.userName}&friend=false&unwanted=false' />"><c:out value="${unwanted.userName}"/></a><br/>
 							  </div>
 							</div>
 						</div>
-						</c:forEach>
-					</div>
-					<div class="panel-footer">
-						<form action="<c:url value='/home'/>" method="post">
-							<input type="text" name="message" class="form-control" placeholder="What are you thinking?">
-							<br/>
-							<input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!">
-						</form>
-					</div>
+				</c:forEach>
+				</div>
+				<div class="col-lg-4">
 				</div>
 			</div>
 			<br>
+			
 	    </div> <!--/ .container -->
 	</div><!--/ #introwrap -->
 	

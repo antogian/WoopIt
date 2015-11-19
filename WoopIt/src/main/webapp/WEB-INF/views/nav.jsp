@@ -29,7 +29,7 @@
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="<c:url value='/user/friendlist' />"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a></li>
-		            <li><a href="<c:url value='/user/viewprofile' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a></li>
+		            <li><a href="<c:url value='/viewprofile?name=${currentUser.userName}&friend=false&unwanted=false' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a></li>
 		            <li><a href="<c:url value='/user/setavatar' />"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;&nbsp;Avatar</a></li>
 		            <li><a href="<c:url value='/user/history' />"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;&nbsp;History</a></li>
 		            <li><a href="<c:url value='/user/settings' />"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;Settings</a></li>
