@@ -1,5 +1,7 @@
 package gr.teicm.icd.data.services;
 
+import java.util.*;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,8 +64,87 @@ public class UserService {
     public void removePhoto(User user){
     	try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 	    	UserDAO userDAO = (UserDAO) context.getBean("userDAO");
-	    	
+	
 	    	userDAO.removePhoto(user);
     	}
     }
+    
+	public void addUserToFriends(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isFriend(currentUser, targetUser)){
+				if(userDAO.isUnwanted(currentUser, targetUser)){
+					userDAO.removeUserFromUnwanted(currentUser, targetUser);	
+				}
+				userDAO.addUserToFriends(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public void addUserToUnwanted(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isUnwanted(currentUser, targetUser)){
+				if(userDAO.isFriend(currentUser, targetUser)){
+					userDAO.removeUserFromFriends(currentUser, targetUser);	
+				}
+				userDAO.addUserToUnwanted(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public void removeUserFromFriends(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isFriend(currentUser, targetUser)){
+				userDAO.removeUserFromFriends(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public void removeUserFromUnwanted(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			if(!userDAO.isUnwanted(currentUser, targetUser)){
+				userDAO.removeUserFromUnwanted(currentUser, targetUser);
+			}
+		}
+	}
+	
+	public Boolean isFriend(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.isFriend(currentUser, targetUser);
+		}
+	}
+	
+	public Boolean isUnwanted(User currentUser, User targetUser){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.isUnwanted(currentUser, targetUser);
+		}
+	}
+	
+	public List<User> getAllFriends(User currentUser){
+		
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.getAllFriends(currentUser);
+		}
+	}
+	
+	public List<User> getAllUnwanted(User currentUser){
+		
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.getAllUnwanted(currentUser);
+		}
+	}
+	
 }
