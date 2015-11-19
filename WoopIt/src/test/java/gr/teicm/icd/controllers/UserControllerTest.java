@@ -7,43 +7,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+
+import gr.teicm.icd.data.entities.User;
+import gr.teicm.icd.data.services.UserService;
 
 public class UserControllerTest extends UserController {
-
+	
 	@Test
 	public void shouldReturnRegisterPath()
 	{
-		//Given
 		String path = "register";
-		//Then
 		Assert.assertTrue(createUser().equals(path));
 	}
-/*
-	@Test
-	public void shouldReturnRegisterPOSTPath()
-	{
-		RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
-		//Given
-		String path = "register";
-		User user = new User();
-		user.setUserName("testUser");
-		user.setUserPass("userPass");
-		user.setUserEmail("user@mail.com");
-		user.setUserSex("Male");
-		user.setUserCountry("Africa");
-		//Then
-		Assert.assertTrue(createUserPOST(user, redirectAttributes).equals(path));
-	}
-*/
+
 	@Test
 	public void shouldReturnLoginPath()
 	{
-		//Given
 		String path = "login";
-		//Then
 		Assert.assertTrue(loginPage().equals(path));
 	}
-	
 	
 	@Test
 	public void shouldReturnLogoutPath()
@@ -51,10 +37,64 @@ public class UserControllerTest extends UserController {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);   
         
-		//Given
         String path = "redirect:/user/login?logout";
-        //Then
         Assert.assertTrue(logoutPage(request, response).equals(path));
 	}
 	
+	@Test
+	public void shouldReturnRegisterSuccessPath()
+	{
+		HttpServletRequest request = mock(HttpServletRequest.class); 
+		String path = "registerSuccess";
+		Assert.assertTrue(successView(request).equals(path));
+	}
+	
+	@Test
+	public void shouldReturnRegisterFailedPath()
+	{
+		HttpServletRequest request = mock(HttpServletRequest.class); 
+		String path = "registerFailed";
+		Assert.assertTrue(failedView(request).equals(path));
+	}
+	
+	public void shouldReturnViewProfilePath()
+	{
+		String path = "viewprofile";
+		Assert.assertTrue(("viewprofile").equals(path));
+	}
+	
+	@Test
+	public void shouldReturnEditProfilePath()
+	{
+		String path = "editprofile";
+		Assert.assertTrue(editProfileView().equals(path));
+	}
+	
+	@Test
+	public void shouldReturnFriendListPathPath()
+	{
+		String path = "friendlist";
+		Assert.assertTrue(friendlistView().equals(path));
+	}
+	
+	@Test
+	public void shouldReturnHistoryPath()
+	{
+		String path = "history";
+		Assert.assertTrue(historyView().equals(path));
+	}
+	
+	@Test
+	public void shouldReturnSettingsPath()
+	{
+		String path = "settings";
+		Assert.assertTrue(settingsView().equals(path));
+	}
+	
+	@Test
+	public void shouldReturnInboxPath()
+	{
+		String path = "inbox";
+		Assert.assertTrue(inboxView().equals(path));
+	}
 }

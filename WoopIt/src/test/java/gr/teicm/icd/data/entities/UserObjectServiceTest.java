@@ -64,4 +64,52 @@ public class UserObjectServiceTest{
 		//Then
 		Assert.assertTrue(user.getUserCountry().equals(country));
 	}
+	
+	@Test
+	public void shouldCreateUserAndReturnPhotoPath()
+	{
+		//Given
+		String photoPath = "default.png";
+		//When
+		User user = new User();
+		user.setUserPhotoPath(photoPath);
+		//Then
+		Assert.assertTrue(user.getUserPhotoPath().equals(photoPath));
+	}
+	
+	@Test
+	public void shouldCreateUserAndReturnLatitude()
+	{
+		//Given
+		double lat = 13.6544321000;
+		//When
+		User user = new User();
+		user.setUserLatitude(lat);
+		//Then
+		Assert.assertEquals(user.getUserLatitude(), lat, lat);
+	}
+	
+	@Test
+	public void shouldCreateUserAndReturnLongitude()
+	{
+		//Given
+		double lng = 10.6544321000;
+		//When
+		User user = new User();
+		user.setUserLongitude(lng);
+		//Then
+		Assert.assertEquals(user.getUserLongitude(), lng, lng);
+	}
+	
+	@Test
+	public void shouldCreateUserAndReturnRadius()
+	{
+		//Given
+		int rad = 100;
+		//When
+		User user = new User();
+		user.setUserRadius(rad);
+		//Then
+		Assert.assertEquals(user.getUserRadius(), rad, rad);
+	}
 }
