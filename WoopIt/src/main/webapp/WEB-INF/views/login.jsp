@@ -34,14 +34,11 @@
 	    	<div class="row centered">
 	    		<div class="col-lg-12">
 					<h1>Welcome To <b>WoopIt</b></h1>
-					<h3>Login and share your thoughts!</h3>
+					<h3>Login or Signup!</h3>
 					<br>
 	    		</div>
 	    		
-	    		<div class="col-lg-2">
-	    			<h5>What is it</h5>
-	    			<p>WoopIt connects you with other people around you. Cool isn't it?</p>
-	    		</div>
+	    		<div class="col-lg-2"></div>
 				<div class="col-lg-1"></div>
 	    		<div class="col-lg-6">
 	    				
@@ -62,15 +59,7 @@
 								  <input id="password" type="password" name="password" class="form-control" placeholder="Password">
 								</div>
 							  </div>
-							  <div class="form-group">
-								<div class="col-sm-offset-2 col-sm-4">
-								  <div class="checkbox">
-									<label>
-									  <input type="checkbox">Remember me
-									</label>
-								  </div>
-								</div>
-							  </div>
+
 							  <div class="form-group">
 								<div class="col-sm-offset-2 col-sm-8">
 								  <button type="submit" class="btn btn-lg btn-default">Sign in</button>
@@ -82,12 +71,7 @@
 				</div>
 					
 	    		</div>
-	    		<div class="col-lg-2">
-	    			<br>
-	    			<img class="hidden-xs hidden-sm hidden-md" src="<c:url value='/resources/assets/img/arrow2.png' />">
-	    			<h5>Join WoopIt</h5>
-	    			<p>Be a member so you can express your feelings to everyone.</p>
-	    		</div>
+
 	    	</div>
 	    </div> <!--/ .container -->
 	</div><!--/ #headerwrap -->

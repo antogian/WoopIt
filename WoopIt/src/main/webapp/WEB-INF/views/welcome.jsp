@@ -35,24 +35,7 @@
 					<h3>Share your thoughts!</h3>
 					<br>
 	    		</div>
-	    		<div class="col-lg-2">
-	    			<h5>What is it</h5>
-	    			<p>WoopIt connects you with other people around you. Cool isn't it?</p>
-	    		</div>
-				<div class="col-lg-1"></div>
-	    		<div class="col-lg-6">	
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<img src="https://ergomag.files.wordpress.com/2014/06/facebook-worldb.jpg" />
-						</div>
-					</div>
-	    		</div>
-	    		<div class="col-lg-2">
-	    			<br>
-	    			<img class="hidden-xs hidden-sm hidden-md" src="<c:url value='/resources/assets/img/arrow2.png' />">
-	    			<h5>Join WoopIt</h5>
-	    			<p>Be a member so you can express your feelings to everyone.</p>
-	    		</div>
+
 	    	</div>
 	    </div> <!--/ .container -->
 	</div><!--/ #headerwrap -->
