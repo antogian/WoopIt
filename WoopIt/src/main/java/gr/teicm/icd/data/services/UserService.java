@@ -73,6 +73,9 @@ public class UserService {
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
 			if(!userDAO.isFriend(currentUser, targetUser)){
+				if(userDAO.isUnwanted(currentUser, targetUser)){
+					userDAO.removeUserFromUnwanted(currentUser, targetUser);	
+				}
 				userDAO.addUserToFriends(currentUser, targetUser);
 			}
 		}
@@ -83,6 +86,9 @@ public class UserService {
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
 			if(!userDAO.isUnwanted(currentUser, targetUser)){
+				if(userDAO.isFriend(currentUser, targetUser)){
+					userDAO.removeUserFromFriends(currentUser, targetUser);	
+				}
 				userDAO.addUserToUnwanted(currentUser, targetUser);
 			}
 		}
