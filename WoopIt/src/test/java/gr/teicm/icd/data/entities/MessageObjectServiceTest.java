@@ -148,6 +148,48 @@ public class MessageObjectServiceTest {
 	}
 	
 	@Test
+	public void shouldCreateUserAndReturnEmail3()
+	{
+		//Given
+		String email = "theodoulidis@gmail.com";
+		//When
+		User user = new User();
+		user.setUserEmail(email);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserEmail().equals(email));
+	}
+	
+	@Test
+	public void shouldCreateUserAndReturnEmail4()
+	{
+		//Given
+		String email = "Papadimitriou@gmail.com";
+		//When
+		User user = new User();
+		user.setUserEmail(email);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserEmail().equals(email));
+	}
+	
+	@Test
+	public void shouldCreateUserAndReturnEmail5()
+	{
+		//Given
+		String email = "Theodoros@gmail.com";
+		//When
+		User user = new User();
+		user.setUserEmail(email);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserEmail().equals(email));
+	}
+	
+	@Test
 	public void shouldCreateMessageAndReturnSenderSex()
 	{
 		//Given
@@ -236,6 +278,90 @@ public class MessageObjectServiceTest {
 	{
 		//Given
 		String country = "England";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry6()
+	{
+		//Given
+		String country = "USA";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry7()
+	{
+		//Given
+		String country = "Albania";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry8()
+	{
+		//Given
+		String country = "Cyprus";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry9()
+	{
+		//Given
+		String country = "Skopia";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry10()
+	{
+		//Given
+		String country = "New Zeland";
+		//When
+		User user = new User();
+		user.setUserCountry(country);
+		Message msg = new Message();
+		msg.setSender(user);
+		//Then
+		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
+	}
+	
+	@Test
+	public void shouldCreateMessageAndReturnSenderCountry11()
+	{
+		//Given
+		String country = "Poland";
 		//When
 		User user = new User();
 		user.setUserCountry(country);
