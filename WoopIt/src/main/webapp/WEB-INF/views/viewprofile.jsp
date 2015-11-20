@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Register</title>
+    <title>WoopIt -Profile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -38,7 +38,8 @@
 				<!-- Show User Profile Columns -->
 				<div class="col-lg-2">
 					<b>Username</b>
-					<c:out value="${currentUser.userName}"/>
+					<c:out value="${targetUser.userName}"/>
+					
 				</div>
 				<div class="col-lg-6">
 				</div>
@@ -47,18 +48,33 @@
 				<br>
 				<!-- Show User Profile -->
 				<div class="col-lg-2">
-					<img src="${pageContext.request.contextPath}/user/avatar/${currentUser.userPhotoPath}" alt="" class="img-thumbnail">									
+					<img src="${pageContext.request.contextPath}/user/avatar/${targetUser.userPhotoPath}" alt="" class="img-thumbnail">									
 				</div>
 				<div class="col-lg-6">
-					<p class="text-left">Country:<c:out value="${currentUser.userCountry}"/></p> 
+					<p class="text-left">Country:<c:out value="${target.userCountry}"/></p> 
 					
-					<p class="text-left">Sex:<c:out value="${currentUser.userSex}"/> </p>
+					<p class="text-left">Sex:<c:out value="${target.userSex}"/> </p>
 				</div>
-				<div class="col-lg-4">
-					<p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;Send Private Message</p>
-					<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Add to Friendlist</p>
-					<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;Block User</p>
-				</div>
+
+				<c:if test="${currentUser.userName == targetUser.userName}">
+					<div class="col-lg-4">
+						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;<a href="friendlist">View Friends</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="unwantedlist">View Unwanted</a></p>
+					</div>
+				</c:if>
+				<c:if test="${currentUser.userName != targetUser.userName}">
+					<div class="col-lg-4">
+					    <p class="text-left"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;<a href="#">Send Private Message</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;<a href="viewprofile?name=${targetUser.userName}&friend=true&unwanted=false">Add to Friends</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="viewprofile?name=${targetUser.userName}&friend=false&unwanted=true">Block User</a></p>
+						<c:if test="${param.friend == 'true' && param.unwanted == 'false'}" >
+							<div class="alert alert-success" role="alert">You have added ${targetUser.userName} to your friend list!</div>
+						</c:if>
+						<c:if test="${param.friend == 'false' && param.unwawnted == 'true'}" >
+							<div class="alert alert-danger" role="alert">You have added ${targetUser.userName} to your unwanted list!</div>
+						</c:if>
+					</div>
+				</c:if>
 			</div>
 			<br/>
 	    </div> <!--/ .container -->
