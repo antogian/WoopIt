@@ -50,7 +50,7 @@
 							  </div>
 							  <div class="media-body text-left">
 							  <c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}">class="active"</c:if>
-							  	<a href="<c:url value='/viewprofile?name=${message.sender.userName}&friend=false&unwanted=false' />"><c:out value="${message.sender.userName}"/></a> says:<br/>
+							  	<a href="<c:url value='/viewprofile?name=${message.sender.userName}&friend=false&blocked=false' />"><c:out value="${message.sender.userName}"/></a> says:<br/>
 							  <c:out value="${message.body}"/>
 							  </div>
 							</div>

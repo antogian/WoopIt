@@ -321,7 +321,7 @@ public class UserDAOImpl implements UserDAO {
     
     public void addUserToFriends(User currentUser, User targetUser){
 		String sqlQuery = "INSERT INTO FRIENDS " +
-				"(FRIENDS_USER_ID, FRIENDS_USER_FRIEND_ID) VALUES (?, ?)";
+				"(FRIENDS_CURRENT_USER_ID, FRIENDS_TARGET_USER_ID) VALUES (?, ?)";
 		Connection conn = null;
 		
 		try {
@@ -348,9 +348,9 @@ public class UserDAOImpl implements UserDAO {
 		}
     }
     
-    public void addUserToUnwanted(User currentUser, User targetUser){
-		String sqlQuery = "INSERT INTO UNWANTED " +
-				"(UNWANTED_USER_ID, UNWANTED_BLOCKED_USER_ID) VALUES (?, ?)";
+    public void addUserToBlocked(User currentUser, User targetUser){
+		String sqlQuery = "INSERT INTO BLOCKED " +
+				"(BLOCKED_CURRENT_USER_ID, BLOCKED_TARGET_USER_ID) VALUES (?, ?)";
 		Connection conn = null;
 		
 		try {
@@ -378,7 +378,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     public void removeUserFromFriends(User currentUser, User targetUser){
-		String sqlQuery = "DELETE FROM FRIENDS WHERE FRIENDS_USER_ID=? AND FRIENDS_USER_FRIEND_ID=?";
+		String sqlQuery = "DELETE FROM FRIENDS WHERE FRIENDS_CURRENT_USER_ID=? AND FRIENDS_TARGET_USER_ID=?";
 		Connection conn = null;
 		
 		try {
@@ -404,8 +404,8 @@ public class UserDAOImpl implements UserDAO {
 		}
     }
     
-    public void removeUserFromUnwanted(User currentUser, User targetUser){
-		String sqlQuery = "DELETE FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
+    public void removeUserFromBlocked(User currentUser, User targetUser){
+		String sqlQuery = "DELETE FROM BLOCKED WHERE BLOCKED_CURRENT_USER_ID=? AND BLOCKED_TARGET_USER_ID=?";
 		Connection conn = null;
 		
 		try {
@@ -434,7 +434,7 @@ public class UserDAOImpl implements UserDAO {
     
 	public Boolean isFriend(User currentUser, User targetUser){
 		
-		String sql = "SELECT * FROM FRIENDS WHERE FRIENDS_USER_ID=? AND FRIENDS_USER_FRIEND_ID=?";
+		String sql = "SELECT * FROM FRIENDS WHERE FRIENDS_CURRENT_USER_ID=? AND FRIENDS_TARGET_USER_ID=?";
 		Connection conn = null;
 		
 		try {
@@ -465,9 +465,9 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
-	public Boolean isUnwanted(User currentUser, User targetUser){
+	public Boolean isBlocked(User currentUser, User targetUser){
 		
-		String sqlQuery = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=? AND UNWANTED_BLOCKED_USER_ID=?";
+		String sqlQuery = "SELECT * FROM BLOCKED WHERE BLOCKED_CURRENT_USER_ID=? AND BLOCKED_TARGET_USER_ID=?";
 		Connection conn = null;
 		
 		try {
@@ -502,7 +502,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	public List<User> getAllFriends(User currentUser){
 		List<User> allFriends = new ArrayList<>();
-		String sqlQuery = "SELECT * FROM FRIENDS WHERE FRIENDS_USER_ID=?";
+		String sqlQuery = "SELECT * FROM FRIENDS WHERE FRIENDS_CURRENT_USER_ID=?";
 		Connection conn = null;
 		UserDAOImpl userDao = new UserDAOImpl();
 		userDao.setDataSource(this.dataSource);
@@ -513,7 +513,7 @@ public class UserDAOImpl implements UserDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				User user = new User();
-				user.setUserId(rs.getLong("FRIENDS_USER_FRIEND_ID"));
+				user.setUserId(rs.getLong("FRIENDS_TARGET_USER_ID"));
 				user = this.findByUserId(user.getUserId());
 				allFriends.add(user);
 			}
@@ -535,9 +535,9 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
-	public List<User> getAllUnwanted(User currentUser){
-		List<User> allUnwanted = new ArrayList<>();
-		String sqlQuery = "SELECT * FROM UNWANTED WHERE UNWANTED_USER_ID=?";
+	public List<User> getAllBlocked(User currentUser){
+		List<User> allBlocked = new ArrayList<>();
+		String sqlQuery = "SELECT * FROM BLOCKED WHERE BLOCKED_CURRENT_USER_ID=?";
 		Connection conn = null;
 		UserDAOImpl userDao = new UserDAOImpl();
 		userDao.setDataSource(this.dataSource);
@@ -548,12 +548,12 @@ public class UserDAOImpl implements UserDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				User user = new User();
-				user.setUserId(rs.getLong("UNWANTED_BLOCKED_USER_ID"));
+				user.setUserId(rs.getLong("BLOCKED_TARGET_USER_ID"));
 				user = this.findByUserId(user.getUserId());
-				allUnwanted.add(user);
+				allBlocked.add(user);
 			}
 			ps.close();
-			return allUnwanted;
+			return allBlocked;
 		}
 		catch(SQLException e){
 			throw new RuntimeException(e);

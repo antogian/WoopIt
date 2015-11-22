@@ -74,23 +74,23 @@ public class UserService {
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
 			if(!userDAO.isFriend(currentUser, targetUser)){
-				if(userDAO.isUnwanted(currentUser, targetUser)){
-					userDAO.removeUserFromUnwanted(currentUser, targetUser);	
+				if(userDAO.isBlocked(currentUser, targetUser)){
+					userDAO.removeUserFromBlocked(currentUser, targetUser);	
 				}
 				userDAO.addUserToFriends(currentUser, targetUser);
 			}
 		}
 	}
 	
-	public void addUserToUnwanted(User currentUser, User targetUser){
+	public void addUserToBlocked(User currentUser, User targetUser){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
-			if(!userDAO.isUnwanted(currentUser, targetUser)){
+			if(!userDAO.isBlocked(currentUser, targetUser)){
 				if(userDAO.isFriend(currentUser, targetUser)){
 					userDAO.removeUserFromFriends(currentUser, targetUser);	
 				}
-				userDAO.addUserToUnwanted(currentUser, targetUser);
+				userDAO.addUserToBlocked(currentUser, targetUser);
 			}
 		}
 	}
@@ -105,12 +105,12 @@ public class UserService {
 		}
 	}
 	
-	public void removeUserFromUnwanted(User currentUser, User targetUser){
+	public void removeUserFromBlocked(User currentUser, User targetUser){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
-			if(!userDAO.isUnwanted(currentUser, targetUser)){
-				userDAO.removeUserFromUnwanted(currentUser, targetUser);
+			if(!userDAO.isBlocked(currentUser, targetUser)){
+				userDAO.removeUserFromBlocked(currentUser, targetUser);
 			}
 		}
 	}
@@ -122,10 +122,10 @@ public class UserService {
 		}
 	}
 	
-	public Boolean isUnwanted(User currentUser, User targetUser){
+	public Boolean isBlocked(User currentUser, User targetUser){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
-			return userDAO.isUnwanted(currentUser, targetUser);
+			return userDAO.isBlocked(currentUser, targetUser);
 		}
 	}
 	
@@ -138,12 +138,12 @@ public class UserService {
 		}
 	}
 	
-	public List<User> getAllUnwanted(User currentUser){
+	public List<User> getAllBlocked(User currentUser){
 		
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 			
-			return userDAO.getAllUnwanted(currentUser);
+			return userDAO.getAllBlocked(currentUser);
 		}
 	}
 	

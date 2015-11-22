@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WoopIt - Friendlist</title>
+    <title>WoopIt - Friends List</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/resources/assets/css/bootstrap.css' />" rel="stylesheet">
@@ -32,7 +32,7 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Your Friend List</h1>
+				<h1><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Your Friends List</h1>
 				<hr>
 				<br>
 				<div class="col-lg-4">
@@ -48,7 +48,7 @@
 							  </div>
 							  <div class="media-body text-left">
 							  <c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}">class="active"</c:if>
-							  	<a href="<c:url value='/viewprofile?name=${friend.userName}&friend=false&unwanted=false' />"><c:out value="${friend.userName}"/></a><br/>
+							  	<a href="<c:url value='/viewprofile?name=${friend.userName}&friend=false&blocked=false' />"><c:out value="${friend.userName}"/></a><br/>
 							  </div>
 							</div>
 						</div>
