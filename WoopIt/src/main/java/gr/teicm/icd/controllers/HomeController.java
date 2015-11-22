@@ -13,30 +13,44 @@ import gr.teicm.icd.data.services.UserService;
 @Controller
 public class HomeController {
 	
+
+	
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping("/")
-	public String goIndex()
+	public String goIndex(Model model)
 	{
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		
 		return "welcome";
 	}
 	
 	@RequestMapping("/welcome")
-	public String goWelcome()
+	public String goWelcome(Model model)
 	{
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		
 		return "welcome";
 	}
 	
 	@RequestMapping("/howto")
-	public String goHowto()
+	public String goHowto(Model model)
 	{
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		
 		return "howto";
 	}
 	
 	@RequestMapping("/support")
-	public String goSupport()
+	public String goSupport(Model model)
 	{
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		model.addAttribute("currentUser", currentUser);
+		
 		return "support";
 	}
 }
