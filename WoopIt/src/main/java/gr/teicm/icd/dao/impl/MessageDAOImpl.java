@@ -103,7 +103,6 @@ public class MessageDAOImpl implements MessageDAO{
 				double lng2 = msg.getMessageLongitude();
 				int rad2 = msg.getMessageRadius();
 				
-				System.out.println(lat1 + " " + lng1 + " " + rad1 + " " + lat2 + " " + lng2 + " " + rad2 );//TA DATA YPARXOUN checked
 				if(geo.isOverlap(lat1, lat2, lng1, lng2, rad1, rad2)){
 					selectedMessages.add(msg);
 				}
