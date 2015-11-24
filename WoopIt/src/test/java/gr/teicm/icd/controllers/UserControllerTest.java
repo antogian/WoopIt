@@ -71,13 +71,6 @@ public class UserControllerTest extends UserController {
 	}
 	
 	@Test
-	public void shouldReturnFriendListPathPath()
-	{
-		String path = "friendlist";
-		//Assert.assertTrue(friendlistView().equals(path)); FIXME <-----------------------------------------------
-	}
-	
-	@Test
 	public void shouldReturnHistoryPath()
 	{
 		String path = "history";

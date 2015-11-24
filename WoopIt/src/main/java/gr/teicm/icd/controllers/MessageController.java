@@ -28,8 +28,8 @@ public class MessageController {
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String displayAllMessages(Model model)
 	{
-		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
 		
 		this.allMessages = this.messageService.getAllMessages();
 		model.addAttribute("allMessages", this.allMessages);

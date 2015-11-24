@@ -22,7 +22,7 @@ public class ProfileController {
     public String goProfileView(@RequestParam("name") String name, @RequestParam("friend") String friend, @RequestParam("blocked") String blocked, Model model){ 
     	
     	User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-    	model.addAttribute("currentUser", currentUser);
+    	//model.addAttribute("currentUser", currentUser);
     	
     	if (name.equals(currentUser.getUserName())){
         	model.addAttribute("targetUser", currentUser);
@@ -50,7 +50,7 @@ public class ProfileController {
 	public String goFriendList(Model model){
 		
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//model.addAttribute("currentUser", currentUser);
 		List<User> allFriends = new ArrayList<>();
 		allFriends = this.userService.getAllFriends(currentUser);
 		model.addAttribute("allFriends", allFriends);
@@ -58,11 +58,11 @@ public class ProfileController {
 		return "friendlist";
 	}
 	
-	@RequestMapping(value="unwantedlist", method=RequestMethod.GET) 
+	@RequestMapping(value="blacklist", method=RequestMethod.GET) 
 	public String goUnwantedList(Model model){
 		
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//model.addAttribute("currentUser", currentUser);
 		List<User> allBlocked = new ArrayList<>();
 		allBlocked = this.userService.getAllBlocked(currentUser);
 		model.addAttribute("allBlocked", allBlocked);

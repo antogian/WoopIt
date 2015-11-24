@@ -72,37 +72,37 @@ public class UserController {
     }
     
     @RequestMapping(value="/editprofile", method=RequestMethod.GET) 
-    public String editProfileView(Model model){ 
+    public String editProfileView(){ 
 
-		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
     	
     	return "editprofile"; 
     }
     
     @RequestMapping(value="/history", method=RequestMethod.GET) 
-    public String historyView(Model model){ 
+    public String historyView(){ 
 
-		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
     	
     	return "history"; 
     }
     
     @RequestMapping(value="/settings", method=RequestMethod.GET) 
-    public String settingsView(Model model){ 
+    public String settingsView(){ 
 
-		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
     	
     	return "settings"; 
     }
     
     @RequestMapping(value="/inbox", method=RequestMethod.GET) 
-    public String inboxView(Model model){ 
+    public String inboxView(){ 
 
-		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		model.addAttribute("currentUser", currentUser);
+		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
     	
     	return "inbox"; 
     }
