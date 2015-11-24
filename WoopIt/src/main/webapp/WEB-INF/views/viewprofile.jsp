@@ -59,7 +59,7 @@
 				<c:if test="${currentUser.userName == targetUser.userName}">
 					<div class="col-lg-4">
 						<p class="text-left"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;<a href="friendlist">View Friends List</a></p>
-						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="unwantedlist">View Blocked List</a></p>
+						<p class="text-left"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;&nbsp;<a href="blacklist">View Blocked List</a></p>
 					</div>
 				</c:if>
 				<c:if test="${currentUser.userName != targetUser.userName}">

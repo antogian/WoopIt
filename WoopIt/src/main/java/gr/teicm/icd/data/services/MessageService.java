@@ -1,6 +1,6 @@
 package gr.teicm.icd.data.services;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,6 +29,7 @@ public class MessageService {
 	public List<Message> getAllMessages(){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
+			
 			return messageDAO.getAllMessages();
 		}
 	}

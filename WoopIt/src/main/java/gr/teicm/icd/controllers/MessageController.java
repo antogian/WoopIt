@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gr.teicm.icd.data.entities.*;
-import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.data.services.*;
 
 @Controller
@@ -32,6 +31,18 @@ public class MessageController {
 		//model.addAttribute("currentUser", currentUser);
 		
 		this.allMessages = this.messageService.getAllMessages();
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		User targetUser = new User();
+		
+		for(int i = 0; i < this.allMessages.size(); i++)
+		{
+			targetUser = this.allMessages.get(i).getSender();
+			if(this.userService.isBlocked(currentUser, targetUser))
+			{
+				this.allMessages.remove(i);
+			}
+		}
+		
 		model.addAttribute("allMessages", this.allMessages);
 		return "home";
 	}
@@ -54,4 +65,5 @@ public class MessageController {
 		model.addAttribute("allMessages", this.allMessages);
 		return "redirect:/home";
 	}
+	
 }
