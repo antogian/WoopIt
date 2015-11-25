@@ -13,14 +13,13 @@ import org.junit.Test;
 import gr.teicm.icd.data.entities.User;
 
 public class UserDAO_DBTest extends DatabaseTestCase {
-	public static final String TABLE_LOGIN = "USERS";
 	private UserDAOTest userDaoTest;
 	private Connection jdbcConnection;
 	
 	protected IDatabaseConnection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		jdbcConnection = DriverManager.getConnection(
-				"jdbc:mysql://83.212.116.34:3306/woopit", "#{systemEnvironment['WoopItUser']}", "#{systemEnvironment['WoopItPass']}");
+				"jdbc:mysql://83.212.116.34:3306/testwoopit", System.getenv("WoopItUser"), System.getenv("WoopItPass"));
 		return new DatabaseConnection(jdbcConnection);
 	}
 	
@@ -33,7 +32,23 @@ public class UserDAO_DBTest extends DatabaseTestCase {
 	public void testGetUser() throws SQLException {
 		userDaoTest = new UserDAOTest();
 		User user = new User();
-		user = userDaoTest.getUser(333L);
+		user = userDaoTest.findByUserIdTest(1L);
 		assertEquals("TestUser", user.getUserName());
+	}
+	
+	@Test
+	public void testGetUserByName() throws SQLException {
+		userDaoTest = new UserDAOTest();
+		User user = new User();
+		user = userDaoTest.getUserByNameTest("TestUser");
+		assertEquals("TestUser", user.getUserName());
+	}
+	
+	@Test
+	public void testCheckIfUserNameExistTest() throws SQLException {
+		userDaoTest = new UserDAOTest();
+		Boolean isExist;
+		isExist = userDaoTest.checkIfUserNameExistTest("TestUser");
+		assertTrue(isExist);
 	}
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<dataset>      
 		<!--User Table -->
-		<USERS USER_ID="333" USER_NAME="TestUser" USER_PASS="testPass" USER_EMAIL="dxxx@xx.xx"  />
+		<USERS USER_ID="1" USER_NAME="TestUser" USER_PASS="testPass" USER_EMAIL="dxxx@xx.xx"  />
+		<!--User Role Table-->
+		<USER_ROLES USER_ROLES_ID="1" USER_NAME="TestUser" USER_ROLE="ROLE_USER" />
 	</dataset>
