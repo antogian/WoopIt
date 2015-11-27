@@ -72,6 +72,7 @@ public class MessageDAOImpl implements MessageDAO{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				Message msg = new Message();
+				msg.setId(rs.getLong("MESSAGE_ID"));
 				msg.setBody(rs.getString("MESSAGE_BODY"));
 				Long id = rs.getLong("MESSAGE_USER_ID");
 				msg.setMessageLatitude(rs.getDouble("MESSAGE_LATITUDE"));

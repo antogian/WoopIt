@@ -2,6 +2,7 @@ package gr.teicm.icd.data.entities;
 
 public class Message {
 	
+	private long id;
 	private String body;
 	private String time;
 	private User sender;
@@ -21,6 +22,13 @@ public class Message {
 		this.sender = sender;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getBody() {
 		return body;
 	}
