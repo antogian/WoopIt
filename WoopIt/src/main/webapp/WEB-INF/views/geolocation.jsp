@@ -30,7 +30,7 @@
 	}
 
 	function showPosition(position) {
-		setGeoValues(position);
+		setGeoValues(position.coords.latitude, position.coords.longitude);
 		var googlePos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		var mapOptions = {
 			zoom: 18,
