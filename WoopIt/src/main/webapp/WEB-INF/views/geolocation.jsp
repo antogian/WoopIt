@@ -10,7 +10,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script>
 	var radius = 100;
-
+	
 	function setRadius(userRadius) {
 		radius = userRadius;
 		geoloc();
@@ -42,6 +42,7 @@
 		var markerOpt = {
 			map: googleMap,
 			position: googlePos,
+			draggable: true,
 			title: 'Hi , I am here',
 			animation: google.maps.Animation.DROP
 		};
@@ -59,6 +60,11 @@
 					var popup = new google.maps.InfoWindow(popOpts);
 					google.maps.event.addListener(googleMarker, 'click', function() {
 						popup.open(googleMap);
+					});
+					google.maps.event.addListener(googleMarker, 'dragend', function() {
+						var lat = googleMarker.getPosition().lat();
+						var lng = googleMarker.getPosition().lng();
+						setGeoValues(lat, lng);
 					});
 				} else {
 					alert('No results found');
@@ -80,9 +86,7 @@
 		$('#buttonNext').prop('disabled', false);
 	}
 
-	function setGeoValues(position) {
-		var lng = position.coords.longitude;
-		var lat = position.coords.latitude;
+	function setGeoValues(lat,lng) {
 		document.userLocation.userLatitude.value = lat;
 		document.userLocation.userLongitude.value = lng;
 		document.userLocation.userRadius.value = radius;

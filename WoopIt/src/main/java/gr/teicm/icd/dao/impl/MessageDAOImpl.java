@@ -38,7 +38,10 @@ public class MessageDAOImpl implements MessageDAO{
 			ps.setString(2, message.getBody());
 			ps.setDouble(3, message.getMessageLatitude());
 			ps.setDouble(4, message.getMessageLongitude());
-			ps.setInt(5, message.getMessageRadius());
+			if(message.getMessageRadius()>100)
+				ps.setInt(5, 100);
+			else
+				ps.setInt(5, message.getMessageRadius());
 			ps.executeUpdate();
 			ps.close();
 		}
