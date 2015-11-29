@@ -64,8 +64,6 @@ public class InboxDAOImpl implements InboxDAO {
 		List<Inbox> allInbox = new ArrayList<>();
 		String sqlQuery = "SELECT * FROM INBOX WHERE INBOX_RECEIVER_ID=?";
 		Connection conn = null;
-		UserDAOImpl userDAO = new UserDAOImpl();
-		userDAO.setDataSource(this.dataSource);
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
@@ -76,7 +74,7 @@ public class InboxDAOImpl implements InboxDAO {
 				Inbox pm = new Inbox();
 				pm.setId(rs.getLong("INBOX_ID"));
 				pm.setReceiverUser(user);
-				pm.setSenderUser(userDAO.getUserById(rs.getLong("INBOX_SENDER_ID")));
+				pm.setSenderUser(getUserById(rs.getLong("INBOX_SENDER_ID")));
 				pm.setBody(rs.getString("INBOX_BODY"));
 				pm.setDate(rs.getString("INBOX_DATETIME"));
 				allInbox.add(pm);
@@ -103,8 +101,6 @@ public class InboxDAOImpl implements InboxDAO {
 		List<Inbox> allHistory = new ArrayList<>();
 		String sqlQuery = "SELECT * FROM INBOX WHERE INBOX_SENDER_ID=?";
 		Connection conn = null;
-		UserDAOImpl userDAO = new UserDAOImpl();
-		userDAO.setDataSource(this.dataSource);
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
@@ -113,7 +109,7 @@ public class InboxDAOImpl implements InboxDAO {
 			
 			while(rs.next()){
 				Inbox pm = new Inbox();
-				pm.setReceiverUser(userDAO.getUserById(rs.getLong("INBOX_RECEIVER_ID")));
+				pm.setReceiverUser(getUserById(rs.getLong("INBOX_RECEIVER_ID")));
 				pm.setSenderUser(user);
 				pm.setBody(rs.getString("INBOX_BODY"));
 				pm.setDate(rs.getString("INBOX_DATETIME"));
@@ -217,5 +213,46 @@ public class InboxDAOImpl implements InboxDAO {
 				}
 			}
 		}	
+	}
+	
+	public User getUserById (Long userId){
+		String sqlQuery = "SELECT * FROM USERS WHERE USER_ID = ?";
+		Connection conn = null;
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setLong(1, userId);
+			ResultSet rs = ps.executeQuery();
+			User user = new User();
+			if(rs.next()){
+				user.setUserId(rs.getLong("USER_ID"));
+				user.setUserName(rs.getString("USER_NAME"));
+				user.setUserPass(rs.getString("USER_PASS"));
+				user.setUserEmail(rs.getString("USER_EMAIL"));
+				user.setUserSex(rs.getString("USER_SEX"));
+				user.setUserCountry(rs.getString("USER_COUNTRY"));
+				user.setUserPhotoPath(rs.getString("USER_PHOTO"));
+				user.setUserLatitude(rs.getDouble("USER_LATITUDE"));
+				user.setUserLongitude(rs.getDouble("USER_LONGITUDE"));
+				user.setUserRadius(rs.getInt("USER_RADIUS"));
+			}
+			ps.close();
+			rs.close();
+			return user;
+		}
+		catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
 	}
 }

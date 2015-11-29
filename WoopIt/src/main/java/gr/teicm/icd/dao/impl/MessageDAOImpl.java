@@ -5,6 +5,7 @@ import javax.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.*;
@@ -12,7 +13,7 @@ import gr.teicm.icd.dao.*;
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.data.services.UserService;
 import gr.teicm.icd.geolocation.impl.GeolocationImpl;
-
+@Repository
 public class MessageDAOImpl implements MessageDAO{
 	
 	@Autowired

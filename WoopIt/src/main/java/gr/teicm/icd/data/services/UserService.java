@@ -2,13 +2,17 @@ package gr.teicm.icd.data.services;
 
 import java.util.*;
 
+
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import gr.teicm.icd.dao.UserDAO;
 import gr.teicm.icd.data.entities.User;
 
+@Service 
 public class UserService {
 	
 	public UserService(){
@@ -147,4 +151,10 @@ public class UserService {
 		}
 	}
 	
+	public User getUserById(Long userId){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.getUserById(userId);
+		}
+	}
 }

@@ -2,18 +2,13 @@ package gr.teicm.icd.data.services;
 
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import gr.teicm.icd.dao.*;
 import gr.teicm.icd.data.entities.*;
-
+@Service
 public class MessageService {
-
-	@Autowired
-	GeolocationService geolocationService;
-	@Autowired
-	UserService userService;
 	
 	public MessageService(){
 		

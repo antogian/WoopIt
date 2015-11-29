@@ -1,10 +1,11 @@
 package gr.teicm.icd.data.services;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import gr.teicm.icd.dao.UserDAO;
 import gr.teicm.icd.data.entities.User;
-
+@Service
 public class GeolocationService {
 	
 	public void insertGeoLocation(User user){

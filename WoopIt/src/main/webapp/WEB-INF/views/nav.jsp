@@ -26,12 +26,12 @@
 			<!-- SHOW USER MENU IF LOGGED IN -->
 			<sec:authorize access="hasRole('USER')">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value='/user/inbox' />">Inbox <span class="badge">5</span></a>
+					<li><a href="<c:url value='/user/inbox' />">Inbox <span class="badge">${newNotifications}</span></a>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value='/user/friendlist' />"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a>
+							<li><a href="<c:url value='/friendlist' />"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a>
 							</li>
 							<li><a href="<c:url value='/viewprofile?name=${currentUser.userName}&friend=false&blocked=false' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a>
 							</li>

@@ -2,8 +2,10 @@ package gr.teicm.icd.dao;
 
 import java.util.List;
 
-import gr.teicm.icd.data.entities.User;
+import org.springframework.stereotype.Repository;
 
+import gr.teicm.icd.data.entities.User;
+@Repository
 public interface UserDAO {
     
     public void insert(User user);
@@ -19,6 +21,8 @@ public interface UserDAO {
     public User findByUserId(Long userId);
     
     public User getUserByName(String userName);
+    
+    public User getUserById (Long userId);
     
     public void addUserToFriends(User currentUser, User targetUser);
     

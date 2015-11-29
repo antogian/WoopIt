@@ -9,10 +9,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.stereotype.Repository;
+
 import gr.teicm.icd.data.entities.Message;
 import gr.teicm.icd.data.entities.User;
 import gr.teicm.icd.dao.UserDAO;
-
+@Repository
 public class UserDAOImpl implements UserDAO {
 	
 	private DataSource dataSource;
@@ -560,6 +562,47 @@ public class UserDAOImpl implements UserDAO {
 		}
 		finally{
 			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
+	}
+	
+	public User getUserById (Long userId){
+		String sqlQuery = "SELECT * FROM USERS WHERE USER_ID = ?";
+		Connection conn = null;
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setLong(1, userId);
+			ResultSet rs = ps.executeQuery();
+			User user = new User();
+			if(rs.next()){
+				user.setUserId(rs.getLong("USER_ID"));
+				user.setUserName(rs.getString("USER_NAME"));
+				user.setUserPass(rs.getString("USER_PASS"));
+				user.setUserEmail(rs.getString("USER_EMAIL"));
+				user.setUserSex(rs.getString("USER_SEX"));
+				user.setUserCountry(rs.getString("USER_COUNTRY"));
+				user.setUserPhotoPath(rs.getString("USER_PHOTO"));
+				user.setUserLatitude(rs.getDouble("USER_LATITUDE"));
+				user.setUserLongitude(rs.getDouble("USER_LONGITUDE"));
+				user.setUserRadius(rs.getInt("USER_RADIUS"));
+			}
+			ps.close();
+			rs.close();
+			return user;
+		}
+		catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(conn != null){
 				try{
 					conn.close();
 				}

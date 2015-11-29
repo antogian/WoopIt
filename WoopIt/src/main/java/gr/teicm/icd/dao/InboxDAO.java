@@ -20,4 +20,6 @@ public interface InboxDAO {
 	 public void deleteInbox(Long id, User user);
 	 
 	 public void resetNewInboxQuantity(User user);
+	 
+	 public User getUserById (Long userId);
 }

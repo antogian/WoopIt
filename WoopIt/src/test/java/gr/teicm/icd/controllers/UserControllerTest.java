@@ -83,11 +83,4 @@ public class UserControllerTest extends UserController {
 		String path = "settings";
 		Assert.assertTrue(settingsView().equals(path));
 	}
-	
-	@Test
-	public void shouldReturnInboxPath()
-	{
-		String path = "inbox";
-		Assert.assertTrue(inboxView().equals(path));
-	}
 }

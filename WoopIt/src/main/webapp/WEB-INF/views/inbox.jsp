@@ -40,33 +40,52 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-2">
-								<ul class="nav nav-pills nav-stacked">
-									<li role="presentation" class="active"><a href="#">Inbox&nbsp;&nbsp;<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
-									</li>
-									<li role="presentation"><a href="#">Sent&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
-									</li>
-									<li role="presentation"><a href="#">Friend Requests&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-									</li>
-								</ul>
+								<jsp:include page="inboxMenu.jsp" />
 							</div>
 							<div class="col-md-10">
 								<div class="panel panel-success">
 									<table class="table table-striped">
 										<tr class="active">
-											<td></td>
+											<td width="65px"></td>
 											<td><b>Sent by</b>
 											</td>
 											<td><b>Message</b>
 											</td>
 											<td><b>Date</b>
 											</td>
+											<td width="15px"></td>
 										</tr>
+										<c:forEach items="${allInbox}" var="pm">
+										<c:url var="profileUrl" value="/viewprofile?name=${pm.senderUser.userName}" />
 										<tr class="success">
-											<td>photo edw</td>
-											<td>cthulu</td>
-											<td>hellooooooooooooooo (new messageee)</td>
-											<td>10/10/2015 3:35p.m</td>
+											<td width="65px"><img class="media-object img-circle" height="54" width="54" src="${pageContext.request.contextPath}/user/avatar/${pm.senderUser.userPhotoPath}" /></td>
+											<td width="40px"><a href="${profileUrl}"><c:out value="${pm.senderUser.userName}" /></a></td>
+											<td><c:out value="${pm.body}" /></td>
+											<td width="20px"><c:out value="${pm.date}" /></td>
+											<td width="15px">
+											<!-- Small modal -->
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+												<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+												  <div class="modal-dialog modal-sm">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												        <h4 class="modal-title">Confirmation</h4>
+												      </div>
+												      <div class="modal-body">
+												        <p>Are you sure you want to delete this personal message permanently?</p>
+												      </div>
+												      <div class="modal-footer">
+												        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+												        <c:url var="deleteUrl" value="/user/inbox?delete=true&id=${pm.id}" />
+												        <a href="${deleteUrl}" type="button" class="btn btn-danger">Delete</a>
+												      </div>
+												    </div>
+												  </div>
+												</div>
+											</td>
 										</tr>
+										</c:forEach>
 									</table>
 								</div>
 							</div>

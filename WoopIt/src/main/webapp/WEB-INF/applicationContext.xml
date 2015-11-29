@@ -7,5 +7,6 @@
 	<bean id="userService" class="gr.teicm.icd.data.services.UserService"/>
 	<bean id="messageService" class="gr.teicm.icd.data.services.MessageService"/>
 	<bean id="geoLocationService" class="gr.teicm.icd.data.services.GeolocationService"/>
+	<bean id="inboxService" class="gr.teicm.icd.data.services.InboxService"/>
 	<import resource="classpath*:Spring-database.xml" />
 </beans>

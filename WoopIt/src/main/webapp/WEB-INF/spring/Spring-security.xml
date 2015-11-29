@@ -9,7 +9,11 @@
         <intercept-url pattern="/trackme/**" access="hasRole('USER')" />
         <intercept-url pattern="/home/**" access="hasRole('USER')" />
         <intercept-url pattern="/user/profile/**" access="hasRole('USER')" />
-        <intercept-url pattern="/user/friendlist/**" access="hasRole('USER')" />
+        <intercept-url pattern="/friendlist/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inbox/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxNew/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxSend/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxHistory/**" access="hasRole('USER')" />
         <intercept-url pattern="/user/editprofile/**" access="hasRole('USER')" />
         <intercept-url pattern="/user/setavatar/**" access="hasRole('USER')" />
         <intercept-url pattern="/user/history/**" access="hasRole('USER')" />
