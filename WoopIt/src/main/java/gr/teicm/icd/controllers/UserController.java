@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import gr.teicm.icd.data.entities.Inbox;
 import gr.teicm.icd.data.entities.User;
+import gr.teicm.icd.data.services.InboxService;
 import gr.teicm.icd.data.services.UserService;
 
 @Controller
@@ -25,8 +27,9 @@ import gr.teicm.icd.data.services.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private InboxService inboxService;
 	
-	//Register User
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String createUser()
 	{
@@ -99,11 +102,71 @@ public class UserController {
     }
     
     @RequestMapping(value="/inbox", method=RequestMethod.GET) 
-    public String inboxView(){ 
-
-		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//model.addAttribute("currentUser", currentUser);
-    	
+    public String inboxView(Model model, @RequestParam(value="delete", required = false) boolean delete, @RequestParam(value="id", required = false) Long id){ 
+    	User user = userService.getUserByName(this.userService.getLoggedInUsername());
+    	List<Inbox> allInbox = new ArrayList<>();
+    	allInbox = inboxService.getInbox(user);
+    	model.addAttribute("allInbox", allInbox);
+    	//delete
+    	if(delete==true && id>=0){
+    		inboxService.deleteInbox(id, user);
+    		return "inboxDeleted";
+    	}
+    	//reset new inbox messages notification
+    	inboxService.resetNewInboxQuantity(user);
     	return "inbox"; 
+    }
+    
+    @RequestMapping(value="/inboxNew", method=RequestMethod.GET)
+    public String inboxNew(Model model){
+		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		//model.addAttribute("currentUser", currentUser);
+		List<User> allFriends = new ArrayList<>();
+		allFriends = this.userService.getAllFriends(currentUser);
+		model.addAttribute("allFriends", allFriends);
+		
+    	return "inboxNew";
+    }
+    
+    @RequestMapping(value="/inboxSend", method=RequestMethod.GET)
+    public String inboxSend(@RequestParam("name") String name, Model model){
+    	model.addAttribute("name", name);
+    	return "inboxSend";
+    }
+    
+    @RequestMapping(value="/inboxSend", method=RequestMethod.POST)
+    public String inboxSendPOST(@RequestParam("receiverUser") String receiverUser, @RequestParam("body") String body, RedirectAttributes redirectAttributes){
+    	System.out.println(receiverUser);
+    	Inbox pm = new Inbox();
+    	pm.setBody(body);
+    	pm.setSenderUser(userService.getUserByName(userService.getLoggedInUsername()));
+    	pm.setReceiverUser(userService.getUserByName(receiverUser));
+    	inboxService.insertInbox(pm);
+    	redirectAttributes.addFlashAttribute("userName", pm.getReceiverUser().getUserName());
+    	return "redirect:inboxSent";
+    }
+    
+    @RequestMapping(value="/inboxHistory", method=RequestMethod.GET)
+    public String inboxHistory(Model model) {
+    	User user = userService.getUserByName(this.userService.getLoggedInUsername());
+    	List<Inbox> allHistory = new ArrayList<>();
+    	allHistory = inboxService.getHistory(user);
+    	model.addAttribute("allHistory", allHistory);
+    	return "inboxHistory";
+    }
+    
+    @RequestMapping(value="/inboxRequests", method=RequestMethod.GET)
+    public String inboxRequests() {
+    	return "inboxRequests";
+    }
+    
+    @RequestMapping(value="/inboxDeleted", method=RequestMethod.GET)
+    public String inboxDeleted() {
+    	return "inboxDeleted";
+    }
+    
+    @RequestMapping(value="/inboxSent", method=RequestMethod.GET)
+    public String inboxSent() {
+    	return "inboxSent";
     }
 }
