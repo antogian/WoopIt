@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import gr.teicm.icd.data.entities.Inbox;
-import gr.teicm.icd.data.entities.User;
-import gr.teicm.icd.data.services.InboxService;
-import gr.teicm.icd.data.services.UserService;
+import gr.teicm.icd.data.entities.*;
+import gr.teicm.icd.data.services.*;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private InboxService inboxService;
+	@Autowired
+	private FriendService friendService;
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String createUser()
@@ -76,27 +77,18 @@ public class UserController {
     
     @RequestMapping(value="/editprofile", method=RequestMethod.GET) 
     public String editProfileView(){ 
-
-		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//model.addAttribute("currentUser", currentUser);
     	
     	return "editprofile"; 
     }
     
     @RequestMapping(value="/history", method=RequestMethod.GET) 
     public String historyView(){ 
-
-		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//model.addAttribute("currentUser", currentUser);
     	
     	return "history"; 
     }
     
     @RequestMapping(value="/settings", method=RequestMethod.GET) 
     public String settingsView(){ 
-
-		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//model.addAttribute("currentUser", currentUser);
     	
     	return "settings"; 
     }
@@ -122,7 +114,7 @@ public class UserController {
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
 		//model.addAttribute("currentUser", currentUser);
 		List<User> allFriends = new ArrayList<>();
-		allFriends = this.userService.getAllFriends(currentUser);
+		allFriends = this.friendService.getAllFriends(currentUser);
 		model.addAttribute("allFriends", allFriends);
 		
     	return "inboxNew";

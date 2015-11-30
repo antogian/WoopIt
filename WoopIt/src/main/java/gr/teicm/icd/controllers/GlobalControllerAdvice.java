@@ -22,7 +22,6 @@ public class GlobalControllerAdvice {
 	@ModelAttribute("currentUser")
 	public User getCurrentUser(){
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//User currentUser2 = new User();
 		
 		return currentUser;
 	}

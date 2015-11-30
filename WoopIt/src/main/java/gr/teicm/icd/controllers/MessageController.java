@@ -18,18 +18,17 @@ public class MessageController {
 	private List<Message> allMessages = new ArrayList<>();
 	
 	@Autowired
-	MessageService messageService;
+	private MessageService messageService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	GeolocationService geolocationService;
+	private BlockedService blockedService;
+	@Autowired
+	private GeolocationService geolocationService;
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String displayAllMessages(Model model)
 	{
-		//User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
-		//model.addAttribute("currentUser", currentUser);
-		
 		this.allMessages = this.messageService.getAllMessages();
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
 		User targetUser = new User();
@@ -37,7 +36,7 @@ public class MessageController {
 		for(int i = 0; i < this.allMessages.size(); i++)
 		{
 			targetUser = this.allMessages.get(i).getSender();
-			if(this.userService.isBlocked(currentUser, targetUser))
+			if(this.blockedService.isBlocked(currentUser, targetUser))
 			{
 				this.allMessages.remove(i);
 			}
