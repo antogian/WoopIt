@@ -24,22 +24,6 @@ public interface UserDAO {
     
     public User getUserById (Long userId);
     
-    public void addUserToFriends(User currentUser, User targetUser);
-    
-    public void addUserToBlocked(User currentUser, User targetUser);
-    
-    public void removeUserFromFriends(User currentUser, User targetUser);
-    
-    public void removeUserFromBlocked(User currentUser, User targetUser);
-    
-    public Boolean isFriend(User currentUser, User targetUser);
-    
-    public Boolean isBlocked(User currentUser, User targetUser);
-    
-    public List<User> getAllFriends(User currentUser);
-    
-    public List<User> getAllBlocked(User currentUser);
-    
     public Boolean checkIfUserNameExist(String userName);
     
     public void insertGeoLocation(User user);
