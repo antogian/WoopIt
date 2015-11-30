@@ -157,4 +157,20 @@ public class UserService {
 			return userDAO.getUserById(userId);
 		}
 	}
+	
+	public Boolean userExists(String keyword){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.userExists(keyword);
+		}
+	}
+	
+	public List<User> searchUsersByKeyword(String keyword){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			
+			return userDAO.searchUsersByKeyword(keyword);
+		}
+	}
 }

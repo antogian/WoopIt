@@ -26,7 +26,14 @@
 			<!-- SHOW USER MENU IF LOGGED IN -->
 			<sec:authorize access="hasRole('USER')">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value='/user/inbox' />">Inbox <span class="badge">${newNotifications}</span></a>
+					<li>
+						<form action="<c:url value='/searchResults'/>" method="POST">
+							<input type="text" name="keyword" placeholder="Search..." required />
+							<input type="submit" name="submit" value="Search"/>
+						</form>
+					</li>
+					<li>
+						<a href="<c:url value='/user/inbox' />">Inbox <span class="badge">${newNotifications}</span></a>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>

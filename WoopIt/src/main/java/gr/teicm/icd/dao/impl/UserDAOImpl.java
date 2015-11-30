@@ -612,4 +612,79 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 	}
+	
+	public boolean userExists(String keyword){
+		String sqlQuery = "SELECT * FROM USERS WHERE USER_NAME LIKE ?";
+		Connection conn = null;
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			keyword = "%" + keyword + "%";
+			ps.setString(1, keyword);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()){
+				ps.close();
+				rs.close();
+		
+				return true;
+			}
+			else{
+				ps.close();
+				rs.close();
+				
+				return false;
+			}
+		}
+		catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
+	}
+	
+	public List<User> searchUsersByKeyword(String keyword){
+		String sqlQuery = "SELECT * FROM USERS WHERE USER_NAME LIKE ?";
+		Connection conn = null;
+		List<User> matchedUsers = new ArrayList<>();
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			keyword = "%" + keyword + "%";
+			ps.setString(1, keyword);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				User user = new User();
+				user = this.getUserByName(rs.getString("USER_NAME"));
+				matchedUsers.add(user);
+			}
+			ps.close();
+			rs.close();
+			
+			return matchedUsers;
+		}
+		catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if(conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
+	}
 }

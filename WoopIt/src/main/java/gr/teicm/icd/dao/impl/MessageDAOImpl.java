@@ -85,7 +85,7 @@ public class MessageDAOImpl implements MessageDAO{
 				msg.setSender(userDAO.findByUserId(id));
 				allMessages.add(msg);
 			}
-			ps.close();
+			ps.close();		//TODO: close rs
 			
 			// Select the messages with coords near the user's location and put them in new list.
 			double lat1,lng1;
