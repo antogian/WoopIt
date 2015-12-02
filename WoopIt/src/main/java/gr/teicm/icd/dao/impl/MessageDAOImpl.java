@@ -29,7 +29,6 @@ public class MessageDAOImpl implements MessageDAO{
 		String sqlQuery = "INSERT INTO MESSAGES " + 
 						"(MESSAGE_USER_ID, MESSAGE_BODY, MESSAGE_LATITUDE, MESSAGE_LONGITUDE, MESSAGE_RADIUS) " +
 						"VALUES(?, ?, ?, ?, ?)";
-		//Integer id = this.getIdFromDb(message.getSender());
 		Connection conn = null;
 		try {
 			conn = dataSource.getConnection();
@@ -83,6 +82,8 @@ public class MessageDAOImpl implements MessageDAO{
 				msg.setMessageLongitude(rs.getDouble("MESSAGE_LONGITUDE"));
 				msg.setMessageRadius(rs.getInt("MESSAGE_RADIUS"));
 				msg.setSender(userDAO.findByUserId(id));
+				msg.setMessageLikes(rs.getInt("MESSAGE_LIKES"));
+				msg.setMessageDislikes(rs.getInt("MESSAGE_DISLIKES"));
 				allMessages.add(msg);
 			}
 			ps.close();
@@ -129,4 +130,119 @@ public class MessageDAOImpl implements MessageDAO{
 		}
 	}
 
+	public void insertLike(Long messageId){
+		String sqlQuery = "UPDATE MESSAGES SET MESSAGE_LIKES=MESSAGE_LIKES+1 WHERE MESSAGE_ID=?";
+		Connection conn = null;
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.setDataSource(this.dataSource);
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setLong(1, messageId);
+			ps.executeUpdate();
+		}
+		catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}	
+	}
+	
+	public void insertDislike(Long messageId){
+		String sqlQuery = "UPDATE MESSAGES SET MESSAGE_DISLIKES=MESSAGE_DISLIKES+1 WHERE MESSAGE_ID=?";
+		Connection conn = null;
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.setDataSource(this.dataSource);
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setLong(1, messageId);
+			ps.executeUpdate();
+		}
+		catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}	
+	}
+	
+	public void insertMessageUserLike(User user, Long messageId){
+		String sqlQuery = "INSERT INTO MESSAGE_LIKES " + 
+				"(MESSAGE_LIKE_MSG_ID, MESSAGE_LIKE_USER_ID) " +
+				"VALUES(?, ?)";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			
+			ps.setLong(1, messageId);
+			ps.setLong(2, user.getUserId());
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+		finally{
+			if (conn != null){
+				try{
+					conn.close();
+				}
+				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}		
+	}
+	
+	public boolean checkIfLiked(User user, Long messageId){
+		String sql = "SELECT * FROM MESSAGE_LIKES WHERE MESSAGE_LIKE_MSG_ID=? AND MESSAGE_LIKE_USER_ID = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setLong(1, messageId);
+			ps.setLong(2, user.getUserId());
+			ResultSet rs = ps.executeQuery();
+			if (rs.first()) {
+				rs.close();
+				ps.close();
+				return true;
+			}
+			else{
+				rs.close();
+				ps.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}		
+	}
 }
