@@ -29,4 +29,8 @@ public interface UserDAO {
     public void insertGeoLocation(User user);
     
     public User getGeoLocation(String userName);
+    
+    public boolean userExists(String keyword);
+    
+    public List<User> searchUsersByKeyword(String keyword);
 }
