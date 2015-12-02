@@ -33,7 +33,7 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
-				<h1>View profile</h1>
+				<h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;View profile</h1>
 				<hr>
 				<br>
 				<!-- Show User Profile Columns -->

@@ -25,13 +25,14 @@
 
 			<!-- SHOW USER MENU IF LOGGED IN -->
 			<sec:authorize access="hasRole('USER')">
+			
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<form class="navbar-form navbar-left" role="search" action="<c:url value='/searchResults'/>" method="POST">
-							<div class="form-group">
-								<input type="text" class="form-control" name="keyword" placeholder="Search..." required />
-							</div>
-							<input type="submit" class="btn btn-default" name="submit" value="Search"/>
+						<form class="input-group padding8px" action="<c:url value='/searchResults'/>" method="POST">
+							<input type="text" name="keyword" class="form-control" placeholder="Search for...">
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+							</span>
 						</form>
 					</li>
 					<li>
@@ -42,7 +43,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/friendlist' />"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;Friend list</a>
 							</li>
-							<li><a href="<c:url value='/viewprofile?name=${currentUser.userName}&friend=false&blocked=false' />"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a>
+							<li><a href="<c:url value='/viewprofile?name=${currentUser.userName}&friend=false&blocked=false' />"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;Profile</a>
 							</li>
 							<li><a href="<c:url value='/user/setavatar' />"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>&nbsp;&nbsp;Avatar</a>
 							</li>
