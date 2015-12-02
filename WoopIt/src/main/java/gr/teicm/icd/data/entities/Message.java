@@ -9,6 +9,9 @@ public class Message {
 	private double messageLatitude;
 	private double messageLongitude;
 	private int messageRadius;
+	private int messageLikes;
+	private int messageDislikes;
+	
 	
 	public Message(){
 		this.body = "";
@@ -77,4 +80,19 @@ public class Message {
 		this.messageRadius = messageRadius;
 	}
 	
+	public int getMessageLikes(){
+		return this.messageLikes;
+	}
+	
+	public void setMessageLikes(int messageLikes){
+		this.messageLikes = messageLikes;
+	}
+	
+	public int getMessageDislikes(){
+		return this.messageDislikes;
+	}
+	
+	public void setMessageDislikes(int messageDislikes){
+		this.messageDislikes = messageDislikes;
+	}
 }
