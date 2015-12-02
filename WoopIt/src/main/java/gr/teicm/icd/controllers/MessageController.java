@@ -23,9 +23,7 @@ public class MessageController {
 	private UserService userService;
 	@Autowired
 	private BlockedService blockedService;
-	@Autowired
-	private GeolocationService geolocationService;
-	
+
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String displayAllMessages(Model model)
 	{
@@ -65,4 +63,23 @@ public class MessageController {
 		return "redirect:/home";
 	}
 	
+	@RequestMapping(value="/like", method=RequestMethod.GET)
+	public String msgLike(@RequestParam("msgId") long messageId, @RequestParam("like") boolean like){
+		
+		User user = new User();
+		user = this.userService.getUserByName(this.userService.getLoggedInUsername());
+		
+		if(!messageService.checkIfLiked(user, messageId)){
+			if(like){
+				messageService.insertLike(messageId);
+				messageService.insertMessageUserLike(user, messageId);
+			}
+			if(!like){
+				messageService.insertDislike(messageId);
+				messageService.insertMessageUserLike(user, messageId);
+			}
+		}
+
+		return "redirect:/home";
+	}
 }
