@@ -29,4 +29,32 @@ public class MessageService {
 		}
 	}
 	
+	public void insertLike(Long messageId){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
+			messageDAO.insertLike(messageId);
+		}		
+	}
+	
+	public void insertDislike(Long messageId){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
+			messageDAO.insertDislike(messageId);
+		}		
+	}
+	
+	public boolean checkIfLiked(User user, Long messageId){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			MessageDAO messageDAO = (MessageDAO) context.getBean("messageDAO");
+			
+			return messageDAO.checkIfLiked(user, messageId);
+		}		
+	}
+	
+	public void insertMessageUserLike(User user, Long messageId){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
+			messageDAO.insertMessageUserLike(user, messageId);
+		}		
+	}
 }
