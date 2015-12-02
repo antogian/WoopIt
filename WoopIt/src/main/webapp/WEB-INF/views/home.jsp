@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +64,18 @@
 									<div class="media-body text-right">
 										<a class="btn btn-success btn-sm" href="<c:url value='/like?msgId=${message.id}&like=true' />" role="button"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
 										<br/>
-										<a class="top-buffer btn btn-danger btn-sm" href="#" role="button"><span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+										<a class="top-buffer btn btn-danger btn-sm" href="<c:url value='/like?msgId=${message.id}&like=false' />" role="button"><span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+									</div>
+								</div>
+								<div class="progressSmall">
+									<c:set var="totalVotes" value="${message.messageLikes + message.messageDislikes}"/>
+									<c:set var="likes" value="${message.messageLikes / totalVotes}"/>
+									<c:set var="dislikes" value="${message.messageDislikes / totalVotes}"/>
+									<c:set var="likePercentage" value="${likes*100}"/>
+									<c:set var="dislikePercentage" value="${dislikes*100}"/>
+									<div class="progress-bar progress-bar-success" style="width: ${likePercentage}%">
+									</div>
+									<div class="progress-bar progress-bar-danger" style="width: ${dislikePercentage}%">
 									</div>
 								</div>
 							</div>
