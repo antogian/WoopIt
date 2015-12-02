@@ -25,6 +25,7 @@ public class MessageDAOImpl implements MessageDAO{
 		this.dataSource = dataSource;
 	}
 	
+	
 	public void insertMessage(Message message){
 		String sqlQuery = "INSERT INTO MESSAGES " + 
 						"(MESSAGE_USER_ID, MESSAGE_BODY, MESSAGE_LATITUDE, MESSAGE_LONGITUDE, MESSAGE_RADIUS) " +
