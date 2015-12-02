@@ -27,9 +27,11 @@
 			<sec:authorize access="hasRole('USER')">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<form action="<c:url value='/searchResults'/>" method="POST">
-							<input type="text" name="keyword" placeholder="Search..." required />
-							<input type="submit" name="submit" value="Search"/>
+						<form class="navbar-form navbar-left" role="search" action="<c:url value='/searchResults'/>" method="POST">
+							<div class="form-group">
+								<input type="text" class="form-control" name="keyword" placeholder="Search..." required />
+							</div>
+							<input type="submit" class="btn btn-default" name="submit" value="Search"/>
 						</form>
 					</li>
 					<li>
