@@ -7,4 +7,4 @@ Jenkins: http://snf-654323.vm.okeanos.grnet.gr:8080/
 
 War file location: http://snf-654323.vm.okeanos.grnet.gr:8080/job/WoopIt/ws/WoopIt/target/WoopIt-0.0.1-SNAPSHOT.war
 
-Backlog (Excel): https://onedrive.live.com/redir?resid=52B7D445A01FB1A8!583&authkey=!AEL4JLDGYUFkFrI&ithint=file%2cxlsm
+Backlog (Excel): https://www.dropbox.com/s/xz0cpcq7427ymhl/Backlog.xlsm?dl=0
