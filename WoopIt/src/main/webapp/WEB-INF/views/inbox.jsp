@@ -63,26 +63,8 @@
 											<td><c:out value="${pm.body}" /></td>
 											<td width="20px"><c:out value="${pm.date}" /></td>
 											<td width="15px">
-											<!-- Small modal -->
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-												<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-												  <div class="modal-dialog modal-sm">
-												    <div class="modal-content">
-												      <div class="modal-header">
-												        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												        <h4 class="modal-title">Confirmation</h4>
-												      </div>
-												      <div class="modal-body">
-												        <p>Are you sure you want to delete this personal message permanently?</p>
-												      </div>
-												      <div class="modal-footer">
-												        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-												        <c:url var="deleteUrl" value="/user/inbox?delete=true&id=${pm.id}" />
-												        <a href="${deleteUrl}" type="button" class="btn btn-danger">Delete</a>
-												      </div>
-												    </div>
-												  </div>
-												</div>
+									        	<c:url var="deleteUrl" value="/user/inbox?delete=true&id=${pm.id}" />
+									        	<a href="${deleteUrl}" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 											</td>
 										</tr>
 										</c:forEach>

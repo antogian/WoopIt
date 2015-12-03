@@ -36,7 +36,7 @@
 						</form>
 					</li>
 					<li>
-						<a href="<c:url value='/user/inbox' />">Inbox <span class="badge">${newNotifications}</span></a>
+						<a href="<c:url value='/user/inbox' />">Inbox <c:if test="${newNotifications>0}"><span class="badge">${newNotifications}</span></c:if></a>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
