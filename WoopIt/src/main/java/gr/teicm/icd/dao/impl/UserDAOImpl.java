@@ -271,7 +271,10 @@ public class UserDAOImpl implements UserDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setDouble(1, user.getUserLatitude());
 			ps.setDouble(2, user.getUserLongitude());
-			ps.setInt(3, user.getUserRadius());
+			if(user.getUserRadius()>100)
+				ps.setInt(3, 100);
+			else
+				ps.setInt(3, user.getUserRadius());
 			ps.setString(4, user.getUserName());
 			ps.executeUpdate();
 			ps.close();
