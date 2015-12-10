@@ -8,5 +8,7 @@
 	<bean id="messageService" class="gr.teicm.icd.data.services.MessageService"/>
 	<bean id="geoLocationService" class="gr.teicm.icd.data.services.GeolocationService"/>
 	<bean id="inboxService" class="gr.teicm.icd.data.services.InboxService"/>
+	<bean id="friendService" class="gr.teicm.icd.data.services.FriendService"/>
+	<bean id="blockedService" class="gr.teicm.icd.data.services.BlockedService"/>
 	<import resource="classpath*:Spring-database.xml" />
 </beans>

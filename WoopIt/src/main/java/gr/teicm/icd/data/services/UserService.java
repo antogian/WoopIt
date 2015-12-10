@@ -41,6 +41,13 @@ public class UserService {
 		}
 	}
 	
+	public Boolean checkIfUserNameExist(String userName){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			return userDAO.checkIfUserNameExist(userName);
+		}
+	}
+	
     public String getLoggedInUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username

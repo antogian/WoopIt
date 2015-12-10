@@ -128,14 +128,19 @@ public class UserController {
     
     @RequestMapping(value="/inboxSend", method=RequestMethod.POST)
     public String inboxSendPOST(@RequestParam("receiverUser") String receiverUser, @RequestParam("body") String body, RedirectAttributes redirectAttributes){
-    	System.out.println(receiverUser);
-    	Inbox pm = new Inbox();
-    	pm.setBody(body);
-    	pm.setSenderUser(userService.getUserByName(userService.getLoggedInUsername()));
-    	pm.setReceiverUser(userService.getUserByName(receiverUser));
-    	inboxService.insertInbox(pm);
-    	redirectAttributes.addFlashAttribute("userName", pm.getReceiverUser().getUserName());
-    	return "redirect:inboxSent";
+    	if(userService.checkIfUserNameExist(receiverUser)){
+	    	Inbox pm = new Inbox();
+	    	pm.setBody(body);
+	    	pm.setSenderUser(userService.getUserByName(userService.getLoggedInUsername()));
+	    	pm.setReceiverUser(userService.getUserByName(receiverUser));
+	    	inboxService.insertInbox(pm);
+	    	redirectAttributes.addFlashAttribute("userName", pm.getReceiverUser().getUserName());
+	    	return "redirect:inboxSent";
+    	}
+    	else {
+	    	redirectAttributes.addFlashAttribute("userName", receiverUser);
+	    	return "redirect:inboxError";    		
+    	}
     }
     
     @RequestMapping(value="/inboxHistory", method=RequestMethod.GET)
@@ -160,5 +165,10 @@ public class UserController {
     @RequestMapping(value="/inboxSent", method=RequestMethod.GET)
     public String inboxSent() {
     	return "inboxSent";
+    }
+    
+    @RequestMapping(value="/inboxError", method=RequestMethod.GET)
+    public String inboxError() {
+    	return "inboxError";
     }
 }

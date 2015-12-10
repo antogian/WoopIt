@@ -63,7 +63,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="blacklist", method=RequestMethod.GET) 
-	public String goUnwantedList(Model model){
+	public String goBlackList(Model model){
 		
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
 		//model.addAttribute("currentUser", currentUser);
