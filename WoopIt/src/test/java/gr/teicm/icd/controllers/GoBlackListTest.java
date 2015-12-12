@@ -72,7 +72,8 @@ public class GoBlackListTest
                 .build();
     }
     
-    @Test//(timeout = 15000)
+    //@SuppressWarnings("unchecked")
+	@Test//(timeout = 15000)
 	@WithMockUser("test")
 	public void testBlockedNames() throws Exception 
 	{

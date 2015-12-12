@@ -48,7 +48,7 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
 //@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 //@Transactional
 
-public class GoFriendListTest {
+public class DisplayAllMessagesTest {
 	
 	protected MockMvc mockMvc;
 	
@@ -59,7 +59,10 @@ public class GoFriendListTest {
 	private Filter springSecurityFilterChain;
 	
 	@Autowired
-	private FriendService friendService;
+	private BlockedService blockedService;
+	
+	@Autowired
+	private MessageService messageService;
 	
 	@Autowired
 	private UserService userService;
@@ -72,60 +75,80 @@ public class GoFriendListTest {
                 .build();
     }
     
-	
-    //@SuppressWarnings("unchecked")
-	@Test//(timeout = 15000)
-	@WithMockUser("test")
-	public void testFriendsNamesI() throws Exception 
-	{
-        List<User> allFriends = new ArrayList<>();
-        User currentUser = new User();
-        
-        currentUser = this.userService.getUserByName("test");
-        allFriends = this.friendService.getAllFriends(currentUser);
-        
-        Integer counter = 0;
-		while(counter < allFriends.size())
-		{
-			mockMvc.perform(get("/friendlist").with(testSecurityContext()))
-												.andExpect(status().isOk())
-												.andExpect(model()
-												.attribute("allFriends", hasItem(allOf(hasProperty("userName", is(allFriends.get(counter).getUserName()))))));
-			counter++;
-		}
+    private List<Message> removeBlockedMessages(List<Message> allMessages, User currentUser)
+    {
+    	int i = 0;
+    	
+    	while(i < allMessages.size()){
+        	if(this.blockedService.isBlocked(currentUser, allMessages.get(i).getSender())){
+        		allMessages.remove(i);
+    		}
+        	i++;
+    	}
+    	
+    	return allMessages;
     }
-	
-	@Test//(timeout = 15000)
-	@WithMockUser("test")
-	public void testIfModelAttributeExists() throws Exception 
-	{
-        mockMvc.perform(get("/friendlist").with(testSecurityContext()))
-        									.andExpect(status().isOk())
-        									.andExpect(model().attributeExists("allFriends"));
+    
+    @Test//(timeout=10000)
+    @WithMockUser("test")
+    public void testIfModelAttributeExists() throws Exception
+    {
+        mockMvc.perform(get("/home").with(testSecurityContext()))
+											.andExpect(status().isOk())
+											.andExpect(model().attributeExists("allMessages"));
     }
-	
-	@Test//(timeout = 15000)
-	@WithMockUser("test")
-	public void testFriendsListSize() throws Exception 
-	{
-        List<User> allFriends = new ArrayList<>();
-        User currentUser = new User();
-        
-        currentUser = this.userService.getUserByName("test");
-        allFriends = this.friendService.getAllFriends(currentUser);
-		
-        mockMvc.perform(get("/friendlist").with(testSecurityContext()))
-        									.andExpect(status().isOk())
-        									.andExpect(model().attribute("allFriends", hasSize(allFriends.size())));
+    
+    @Test//(timeout=10000)
+    @WithMockUser("test")
+    public void testModelAttributeType() throws Exception
+    {
+        mockMvc.perform(get("/home").with(testSecurityContext()))
+											.andExpect(status().isOk())
+											.andExpect(model().attribute("allMessages", isA(ArrayList.class)));
     }
-	
-	@Test//(timeout = 15000)
-	@WithMockUser("test")
-	public void testFriendsListType() throws Exception 
-	{
-        mockMvc.perform(get("/friendlist").with(testSecurityContext()))
-        									.andExpect(status().isOk())
-        									.andExpect(model().attribute("allFriends", isA(ArrayList.class)));
+    
+    @Test//(timeout=10000)
+    @WithMockUser("test")
+    public void testModelAttributeSize() throws Exception
+    {
+    	List<Message> allMessages = new ArrayList<>();
+    	User currentUser = this.userService.getUserByName("test");
+    	allMessages = this.messageService.getAllMessages();
+    	allMessages = this.removeBlockedMessages(allMessages, currentUser);
+    	
+        mockMvc.perform(get("/home").with(testSecurityContext()))
+											.andExpect(status().isOk())
+											.andExpect(model().attribute("allMessages", hasSize(allMessages.size())));
     }
-	
+    
+    @Test//(timeout=10000)
+    @WithMockUser("test")
+    public void testIfModelAttributeIsNull() throws Exception
+    {
+		mockMvc.perform(get("/home").with(testSecurityContext()))
+											.andExpect(status().isOk())
+											.andExpect(model()
+											.attribute("allMessages", notNullValue()));
+	}
+    
+    /*@SuppressWarnings("unchecked")
+	@Test//(timeout=10000)
+    @WithMockUser("test")
+    public void testModelAttributeContent() throws Exception
+    {
+    	List<Message> allMessages = new ArrayList<>();
+    	User currentUser = this.userService.getUserByName("test");
+    	allMessages = this.messageService.getAllMessages();
+    	allMessages = this.removeBlockedMessages(allMessages, currentUser);
+    	
+    	int i = 0;
+    	while(i < allMessages.size()){
+    		mockMvc.perform(get("/home").with(testSecurityContext()))
+										.andExpect(status().isOk())
+										.andExpect(model()
+										.attribute("allMessages", hasItem(allOf(hasProperty("sender", hasItem(allOf(hasProperty("userName", hasValue(allMessages.get(i).getSender().getUserName())))))))));
+    		i++;
+    	}
+	}*/
+    
 }
