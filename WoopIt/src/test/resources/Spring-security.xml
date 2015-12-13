@@ -1,0 +1,37 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+      
+    <http auto-config="true">
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/trackme/**" access="hasRole('USER')" />
+        <intercept-url pattern="/home/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/profile/**" access="hasRole('USER')" />
+        <intercept-url pattern="/friendlist/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inbox/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxNew/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxSend/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/inboxHistory/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/editprofile/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/setavatar/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/history/**" access="hasRole('USER')" />
+        <intercept-url pattern="/user/settings/**" access="hasRole('USER')" />
+        <form-login login-page="/user/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/Access_Denied" />
+        <!--enable csrf security with <csrf/>  -->
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager >
+        <authentication-provider>
+		<jdbc-user-service data-source-ref="dataSource"
+		  users-by-username-query=
+		    "select USER_NAME, USER_PASS, USER_ENABLED from USERS where USER_NAME=?"
+		  authorities-by-username-query=
+		    "select USER_NAME, USER_ROLE from USER_ROLES where USER_NAME=?" />
+        </authentication-provider>
+    </authentication-manager>
+      
+     
+</beans:beans>

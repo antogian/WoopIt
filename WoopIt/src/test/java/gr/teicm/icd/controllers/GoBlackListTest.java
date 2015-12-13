@@ -37,8 +37,10 @@ import gr.teicm.icd.data.services.*;
 
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/applicationContext.xml", "file:src/main/webapp/WEB-INF/spring/Spring-security.xml", "file:src/main/webapp/WEB-INF/spring/dispatcher-servlet.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+		"classpath:applicationContext.xml", 
+		"classpath:Spring-security.xml", 
+		"classpath:dispatcher-servlet.xml"})@RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestExecutionListeners(listeners={ServletTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,

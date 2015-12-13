@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-merge="default">
+
+	<bean id="userService" class="gr.teicm.icd.data.services.UserService"/>
+	<bean id="messageService" class="gr.teicm.icd.data.services.MessageService"/>
+	<bean id="geoLocationService" class="gr.teicm.icd.data.services.GeolocationService"/>
+	<bean id="inboxService" class="gr.teicm.icd.data.services.InboxService"/>
+	<bean id="friendService" class="gr.teicm.icd.data.services.FriendService"/>
+	<bean id="blockedService" class="gr.teicm.icd.data.services.BlockedService"/>
+	<import resource="classpath*:Spring-database.xml" />
+</beans>
