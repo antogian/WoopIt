@@ -14,7 +14,7 @@ public class BlockedDAOTest {
 	
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(
-				"jdbc:mysql://127.0.0.1:3306/testwoopit", System.getProperty("USER"), System.getProperty("PASS"));
+				"jdbc:mysql://127.0.0.1:3306/testwoopit", System.getenv("USER"), System.getenv("PASS"));
 	}
 	
 	public Boolean isBlockedTest(User currentUser, User targetUser) throws SQLException {
