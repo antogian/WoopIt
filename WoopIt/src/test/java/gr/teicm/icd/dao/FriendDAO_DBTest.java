@@ -22,7 +22,7 @@ public class FriendDAO_DBTest extends DatabaseTestCase{
 	protected IDatabaseConnection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		jdbcConnection = DriverManager.getConnection(
-				"jdbc:mysql://83.212.116.34:3306/testwoopit", System.getenv("WoopItUser"), System.getenv("WoopItPass"));
+				"jdbc:mysql://127.0.0.1:3306/testwoopit", System.getProperty("USER"), System.getProperty("PASS"));
 		return new DatabaseConnection(jdbcConnection);
 	}
 	
