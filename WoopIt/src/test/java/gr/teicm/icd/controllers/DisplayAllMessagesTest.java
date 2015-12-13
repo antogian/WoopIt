@@ -40,7 +40,9 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
 @ContextConfiguration(locations = {
 		"classpath:applicationContext.xml", 
 		"classpath:Spring-security.xml", 
-		"classpath:dispatcher-servlet.xml"})@RunWith(SpringJUnit4ClassRunner.class)
+		"classpath:dispatcher-servlet.xml",
+		"classpath:Spring-database.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestExecutionListeners(listeners={ServletTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,
