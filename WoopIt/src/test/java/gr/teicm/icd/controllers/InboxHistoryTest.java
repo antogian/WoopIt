@@ -66,7 +66,6 @@ public class InboxHistoryTest {
         mockMvc.perform(get("/user/inboxHistory")
 	        .with(testSecurityContext()))
 	        .andExpect(status().isOk())
-	        .andExpect(model().size(3))
 	        .andExpect(model().attribute("allHistory", hasItem(allOf(hasProperty("body", is("hey"))))));
 	}
 
@@ -78,7 +77,6 @@ public class InboxHistoryTest {
         mockMvc.perform(get("/user/inboxHistory")
 	        .with(testSecurityContext()))
 	        .andExpect(status().isOk())
-	        .andExpect(model().size(3))
 	        .andExpect(model().attribute("allHistory", is(emptyCollectionOf(List.class))));
 	}
 }

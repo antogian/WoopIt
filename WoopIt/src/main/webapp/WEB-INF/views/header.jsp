@@ -35,6 +35,8 @@
 	</c:if>
 	<c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}"><title>WoopIt - View Profile</title></c:if>
 	
+	<script type="text/javascript" src="<c:url value='/resources/assets/js/jquery-1.11.3.min.js'/>"></script>
+	
 	<!-- Bootstrap core CSS -->
 	<link href="<c:url value='/resources/assets/css/bootstrap.css'/>" rel="stylesheet">
 
@@ -44,7 +46,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 	
-	<script type="text/javascript" src="<c:url value='/resources/assets/js/jquery-1.11.3.min.js'/>"></script>
+	<script src="<c:url value='/resources/assets/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/resources/assets/js/smoothscroll.js'/>"></script>
 	
 	<script type="text/javascript">

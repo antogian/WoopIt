@@ -66,7 +66,6 @@ public class InboxViewTest {
         mockMvc.perform(get("/user/inbox")
 	        .with(testSecurityContext()))
 	        .andExpect(status().isOk())
-	        .andExpect(model().size(3))
 	        .andExpect(model().attribute("allInbox", hasItem(allOf(hasProperty("body", is("hey")))))
         );
 
@@ -80,7 +79,6 @@ public class InboxViewTest {
 		mockMvc.perform(get("/user/inbox?delete=true&id=13")
 				.with(testSecurityContext()))
 				.andExpect(status().isOk())
-				.andExpect(model().size(3))
 				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
 		);
 	}
@@ -93,7 +91,6 @@ public class InboxViewTest {
 		mockMvc.perform(get("/user/inbox?delete=true&id=9999")
 				.with(testSecurityContext()))
 				.andExpect(status().isOk())
-				.andExpect(model().size(3))
 				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
 		);
 	}
