@@ -80,7 +80,7 @@ public class PostMessageTest {
     	String msg = "Sample Message";
         mockMvc.perform(post("/home").with(testSecurityContext())
         								.param("message", msg))
-										.andExpect(status().is3xxRedirection())
+										.andExpect(status().isOk())
 										.andExpect(model().attributeExists("allMessages"));
     }
     
@@ -92,7 +92,7 @@ public class PostMessageTest {
     	String msg = "Sample Message";
     	mockMvc.perform(post("/home").with(testSecurityContext())
         									.param("message", msg))
-											.andExpect(status().is3xxRedirection())
+											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", isA(ArrayList.class)));
     }
     
@@ -107,7 +107,7 @@ public class PostMessageTest {
     	
         mockMvc.perform(post("/home").with(testSecurityContext())
         								.param("message", msg))
-										.andExpect(status().is3xxRedirection())
+										.andExpect(status().isOk())
 										.andExpect(model().attribute("allMessages", hasSize(allMessages.size() + 1)));
     }
     
@@ -118,7 +118,7 @@ public class PostMessageTest {
     	String msg = "Sample Message";
     	mockMvc.perform(post("/home").with(testSecurityContext())
         									.param("message", msg))
-											.andExpect(status().is3xxRedirection())
+											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", notNullValue()));
     }
     
@@ -129,7 +129,7 @@ public class PostMessageTest {
 	    String msg = "Sample Message";
 		mockMvc.perform(post("/home").with(testSecurityContext())
 										.param("message", msg))
-										.andExpect(status().is3xxRedirection())
+										.andExpect(status().isOk())
 										.andExpect(model().attribute("allMessages", hasItem(allOf(hasProperty("body", is(msg))))));
 	}
 

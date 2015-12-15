@@ -97,7 +97,7 @@ public class DisplayAllMessagesTest {
     @WithMockUser("test")
     public void testIfModelAttributeExists() throws Exception
     {
-        mockMvc.perform(get("/home").with(testSecurityContext()))
+        mockMvc.perform(get("/subHome").with(testSecurityContext()))
 											.andExpect(status().isOk())
 											.andExpect(model().attributeExists("allMessages"));
     }
@@ -106,7 +106,7 @@ public class DisplayAllMessagesTest {
     @WithMockUser("test")
     public void testModelAttributeType() throws Exception
     {
-        mockMvc.perform(get("/home").with(testSecurityContext()))
+        mockMvc.perform(get("/subHome").with(testSecurityContext()))
 											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", isA(ArrayList.class)));
     }
@@ -120,7 +120,7 @@ public class DisplayAllMessagesTest {
     	allMessages = this.messageService.getAllMessages();
     	allMessages = this.removeBlockedMessages(allMessages, currentUser);
     	
-        mockMvc.perform(get("/home").with(testSecurityContext()))
+        mockMvc.perform(get("/subHome").with(testSecurityContext()))
 											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", hasSize(allMessages.size())));
     }
@@ -129,7 +129,7 @@ public class DisplayAllMessagesTest {
     @WithMockUser("test")
     public void testIfModelAttributeIsNull() throws Exception
     {
-		mockMvc.perform(get("/home").with(testSecurityContext()))
+		mockMvc.perform(get("/subHome").with(testSecurityContext()))
 											.andExpect(status().isOk())
 											.andExpect(model()
 											.attribute("allMessages", notNullValue()));
