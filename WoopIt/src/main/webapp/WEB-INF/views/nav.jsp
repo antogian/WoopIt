@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <c:set var="url" value="${ pageContext.request.requestURI }" />
 <!-- Fixed navbar -->
 <div id="navigation" class="navbar navbar-default navbar-fixed-top ">
@@ -36,7 +38,7 @@
 						</form>
 					</li>
 					<li>
-						<a href="<c:url value='/user/inbox' />">Inbox <c:if test="${newNotifications>0}"><span class="badge">${newNotifications}</span></c:if></a>
+						<a href="<c:url value='/user/inbox' />">Inbox&nbsp;&nbsp;<div class="navbar-right" id="notify"></div></a>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>

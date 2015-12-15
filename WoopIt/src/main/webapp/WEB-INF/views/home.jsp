@@ -25,6 +25,7 @@
 
 	<script type="text/javascript">
 		var datLength = 0;
+		var notifLength = 0;
 	    function homeAjax() {
 	        $.ajax({
 	            url : 'subHome',
@@ -48,17 +49,44 @@
 	            }
 	        });
 	    }
+	    function notificationNewAjax() {
+	        $.ajax({
+	            url : 'subNav',
+	            success : function(data) {
+	            	if(data.length > notifLength){
+	                	$('#notify').html(data);
+	                	notifLength = data.length;
+	                	document.getElementById("newNotification").play();
+	            	}else{
+	            		
+	            	}
+	            }
+	        });
+	    }
+	    function notificationAjax() {
+	        $.ajax({
+	            url : 'subNav',
+	            success : function(data) {
+					$('#notify').html(data);
+					notifLength = data.length;
+	            }
+	        });
+	    }
 	</script>
-	
+
 	<script type="text/javascript">
 	    var intervalId = 0;
 	    intervalId = setInterval(newAjax, 3000);
+	    
+	    var intervalNotifId = 0;
+	    intervalNotifId = setInterval(notificationNewAjax, 5000);
 	</script>
-	
+
 </head>
 
-<body data-spy="scroll" data-offset="0" data-target="#navigation" onload="homeAjax()">
+<body data-spy="scroll" data-offset="0" data-target="#navigation" onload="homeAjax(); notificationAjax();">
 
+	<audio id="newNotification" preload="auto" src="<c:url value='/resources/assets/sounds/newNotification.mp3' />"></audio>	
 	<audio id="newMessage" preload="auto" src="<c:url value='/resources/assets/sounds/newMessage.mp3' />"></audio>
 	
 	<jsp:include page="nav.jsp" />
@@ -94,17 +122,4 @@
 	</div>
 	<!--/ #introwrap -->
 
-	<div id="c">
-		<div class="container">
-			<p>WoopIt Project</p>
-		</div>
-	</div>
-
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="<c:url value='/resources/assets/js/bootstrap.js' />"></script>
-</body>
-
-</html>
+<jsp:include page="footer.jsp" />

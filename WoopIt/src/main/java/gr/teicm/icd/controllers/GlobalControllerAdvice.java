@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.data.services.*;
@@ -25,14 +27,5 @@ public class GlobalControllerAdvice {
 		
 		return currentUser;
 	}
-	
-	@ModelAttribute("newNotifications")
-	public int getNewNotifications(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
-		if (!(auth instanceof AnonymousAuthenticationToken)) { 
-			return inboxService.getNewInboxQuantity(getCurrentUser());
-		}
-		else
-			return 0;
-	}
+
 }
