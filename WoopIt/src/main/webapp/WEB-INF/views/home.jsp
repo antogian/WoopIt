@@ -20,16 +20,48 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
-	<script src="<c:url value='/resources/assets/js/jquery.min.js' />"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="<c:url value='/resources/assets/js/smoothscroll.js' />"></script>
 
+	<script type="text/javascript">
+		var datLength = 0;
+	    function homeAjax() {
+	        $.ajax({
+	            url : 'subHome',
+	            success : function(data) {
+					$('#result').html(data);
+					datLength = data.length;
+	            }
+	        });
+	    }
+	    function newAjax() {
+	        $.ajax({
+	            url : 'subHome',
+	            success : function(data) {
+	            	if(data.length > datLength){
+	                	$('#result').html(data);
+	                	datLength = data.length;
+	                	document.getElementById("newMessage").play();
+	            	}else{
+	            		
+	            	}
+	            }
+	        });
+	    }
+	</script>
+	
+	<script type="text/javascript">
+	    var intervalId = 0;
+	    intervalId = setInterval(newAjax, 3000);
+	</script>
+	
 </head>
 
-<body data-spy="scroll" data-offset="0" data-target="#navigation">
+<body data-spy="scroll" data-offset="0" data-target="#navigation" onload="homeAjax()">
 
+	<audio id="newMessage" preload="auto" src="<c:url value='/resources/assets/sounds/newMessage.mp3' />"></audio>
+	
 	<jsp:include page="nav.jsp" />
-
-
 
 	<!-- INTRO WRAP -->
 	<div id="intro">
@@ -45,47 +77,13 @@
 				</ol>
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<c:forEach items="${allMessages}" var="message">
-							<div class="well well-sm">
-								<div class="media">
-									<div class="media-left media-top">
-										<a href="#">
-											<img class="media-object img-circle" height="64" width="64" src="${pageContext.request.contextPath}/user/avatar/${message.sender.userPhotoPath}" alt="...">
-										</a>
-									</div>
-									<div class="media-body text-left">
-										<c:if test="${url=='/WoopIt/WEB-INF/views/viewprofile.jsp'}">class="active"</c:if>
-										<a href="<c:url value='/viewprofile?name=${message.sender.userName}&friend=false&blocked=false' />">
-											<c:out value="${message.sender.userName}" />
-										</a> says:
-										<br/>
-										<c:out value="${message.body}" />
-									</div>
-									<div class="media-body text-right">
-										<a class="btn btn-success btn-sm" href="<c:url value='/like?msgId=${message.id}&like=true' />" role="button"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
-										<br/>
-										<a class="top-buffer btn btn-danger btn-sm" href="<c:url value='/like?msgId=${message.id}&like=false' />" role="button"><span class=" glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
-									</div>
-								</div>
-								<div class="progressSmall">
-									<c:set var="totalVotes" value="${message.messageLikes + message.messageDislikes}"/>
-									<c:set var="likes" value="${message.messageLikes / totalVotes}"/>
-									<c:set var="dislikes" value="${message.messageDislikes / totalVotes}"/>
-									<c:set var="likePercentage" value="${likes*100}"/>
-									<c:set var="dislikePercentage" value="${dislikes*100}"/>
-									<div class="progress-bar progress-bar-success" style="width: ${likePercentage}%">
-									</div>
-									<div class="progress-bar progress-bar-danger" style="width: ${dislikePercentage}%">
-									</div>
-								</div>
-							</div>
-						</c:forEach>
+						<div id="result"></div>
 					</div>
 					<div class="panel-footer">
 						<form action="<c:url value='/home'/>" method="post">
-							<input type="text" name="message" class="form-control" placeholder="What are you thinking?">
+							<input id="message" type="text" name="message" class="form-control" placeholder="What are you thinking?">
 							<br/>
-							<input type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!">
+							<input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!" />
 						</form>
 					</div>
 				</div>

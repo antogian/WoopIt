@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.data.services.*;
@@ -25,7 +26,13 @@ public class MessageController {
 	private BlockedService blockedService;
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)
-	public String displayAllMessages(Model model)
+	public String homeView()
+	{
+		return "home";
+	}
+	
+	@RequestMapping(value="/subHome", method=RequestMethod.GET)
+	public ModelAndView displayAllMessages(Model model)
 	{
 		this.allMessages = this.messageService.getAllMessages();
 		User currentUser = this.userService.getUserByName(this.userService.getLoggedInUsername());
@@ -41,11 +48,12 @@ public class MessageController {
 		}
 		
 		model.addAttribute("allMessages", this.allMessages);
-		return "home";
+		//return "home";
+		return new ModelAndView("subHome");
 	}
 	
 	@RequestMapping(value="/home", method=RequestMethod.POST)
-	public String postMessage(@RequestParam("message") String msg, Model model)
+	public void postMessage(@RequestParam("message") String msg, Model model)
 	{
 		Message newMessage = new Message();
 		User user = new User();
@@ -60,7 +68,7 @@ public class MessageController {
 		this.messageService.insertMessage(newMessage);
 		this.allMessages = this.messageService.getAllMessages();
 		model.addAttribute("allMessages", this.allMessages);
-		return "redirect:/home";
+		//return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/like", method=RequestMethod.GET)
