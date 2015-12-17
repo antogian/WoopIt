@@ -13,6 +13,8 @@ public interface MessageDAO {
 	
 	public List<Message> getAllMessages();
 	
+	public void deleteMessage(Message msg);
+	
 	public void insertLike(Long messageId);
 	
 	public void insertDislike(Long messageId);

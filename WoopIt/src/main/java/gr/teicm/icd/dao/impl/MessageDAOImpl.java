@@ -28,8 +28,8 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	public void insertMessage(Message message){
 		String sqlQuery = "INSERT INTO MESSAGES " + 
-						"(MESSAGE_USER_ID, MESSAGE_BODY, MESSAGE_LATITUDE, MESSAGE_LONGITUDE, MESSAGE_RADIUS) " +
-						"VALUES(?, ?, ?, ?, ?)";
+						"(MESSAGE_USER_ID, MESSAGE_BODY, MESSAGE_EXPIRATION, MESSAGE_LATITUDE, MESSAGE_LONGITUDE, MESSAGE_RADIUS) " +
+						"VALUES(?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		try {
 			conn = dataSource.getConnection();
@@ -37,12 +37,13 @@ public class MessageDAOImpl implements MessageDAO{
 			
 			ps.setString(1, Long.toString(message.getSender().getUserId()));
 			ps.setString(2, message.getBody());
-			ps.setDouble(3, message.getMessageLatitude());
-			ps.setDouble(4, message.getMessageLongitude());
+			ps.setLong(3, message.getExpiration());
+			ps.setDouble(4, message.getMessageLatitude());
+			ps.setDouble(5, message.getMessageLongitude());
 			if(message.getMessageRadius()>100)
-				ps.setInt(5, 100);
+				ps.setInt(6, 100);
 			else
-				ps.setInt(5, message.getMessageRadius());
+				ps.setInt(6, message.getMessageRadius());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -79,6 +80,7 @@ public class MessageDAOImpl implements MessageDAO{
 				msg.setId(rs.getLong("MESSAGE_ID"));
 				msg.setBody(rs.getString("MESSAGE_BODY"));
 				Long id = rs.getLong("MESSAGE_USER_ID");
+				msg.setExpiration(rs.getLong("MESSAGE_EXPIRATION"));
 				msg.setMessageLatitude(rs.getDouble("MESSAGE_LATITUDE"));
 				msg.setMessageLongitude(rs.getDouble("MESSAGE_LONGITUDE"));
 				msg.setMessageRadius(rs.getInt("MESSAGE_RADIUS"));
@@ -125,6 +127,40 @@ public class MessageDAOImpl implements MessageDAO{
 					conn.close();
 				}
 				catch(SQLException e){
+					System.out.println("");
+				}
+			}
+		}
+	}
+	
+	public void deleteMessage(Message msg)
+	{
+		String sqlQuery = "DELETE FROM MESSAGES WHERE MESSAGE_ID=?";
+		Connection conn = null;
+		UserDAOImpl userDAO = new UserDAOImpl();
+		userDAO.setDataSource(this.dataSource);
+		
+		try
+		{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setLong(1, msg.getId());
+			ps.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			if(conn != null)
+			{
+				try
+				{
+					conn.close();
+				}
+				catch(SQLException e)
+				{
 					System.out.println("");
 				}
 			}
