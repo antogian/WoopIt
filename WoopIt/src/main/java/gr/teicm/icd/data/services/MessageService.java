@@ -29,6 +29,13 @@ public class MessageService {
 		}
 	}
 	
+	public void deleteMessage(Message message){
+		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
+			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
+			messageDAO.deleteMessage(message);
+		}
+	}
+	
 	public void insertLike(Long messageId){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 			MessageDAO messageDAO =  (MessageDAO) context.getBean("messageDAO");
