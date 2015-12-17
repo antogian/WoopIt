@@ -43,9 +43,9 @@
 	        $.ajax({
 	            url : 'subHome',
 	            success : function(data) {
+                	$('#result').html(data);
+                	datLength = data.length;
 	            	if(data.length > datLength){
-	                	$('#result').html(data);
-	                	datLength = data.length;
 	                	document.getElementById("newMessage").play();
 	            	}else{
 	            		
@@ -132,21 +132,20 @@
 						<div id="result"></div>
 					</div>
 					<div class="panel-footer">
-						<form action="<c:url value='/home'/>" method="post">
-							<input id="message" type="text" name="message" class="form-control" placeholder="What are you thinking?">
-							<br/>
-							Delete After:
-							<select name="duration" type="number">
-								<option value=30>30 Seconds</option>
-								<option value=60>1 Minute</option>
-								<option value=180>3 Minutes</option>
-								<option value=300>5 Minutes</option>
-								<option value=600>10 Minutes</option>
-								<option value=1800>30 Minutes</option>
-							</select>
-							<br/>
-							<br/>
-							<input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!" />
+						<form class="form-inline" action="<c:url value='/home'/>" method="post">
+							<div class="form-group"">
+								<input id="message" type="text" name="message" class="form-control" placeholder="What are you thinking?">
+								Delete After:
+								<select name="duration" class="form-control">
+									<option value=30>30 Seconds</option>
+									<option value=60>1 Minute</option>
+									<option value=180>3 Minutes</option>
+									<option value=300>5 Minutes</option>
+									<option value=600>10 Minutes</option>
+									<option value=1800>30 Minutes</option>
+								</select>
+							</div>
+							<input type="submit" id="submit" class="btn btn-primary" name="submit" value="Woop It!" />
 						</form>
 					</div>
 				</div>
