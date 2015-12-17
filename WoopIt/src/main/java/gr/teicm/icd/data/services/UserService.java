@@ -1,9 +1,6 @@
 package gr.teicm.icd.data.services;
 
 import java.util.*;
-
-
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,9 +19,7 @@ public class UserService {
 	public Boolean insertUser(User user){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 	    	UserDAO userDAO = (UserDAO) context.getBean("userDAO");
-	    	
-	    	// Check if the username already exist in the DB
-	    	if(userDAO.checkIfUserNameExist(user.getUserName())==false){
+	    	if(userDAO.checkIfUserNameExist(user.getUserName())==false || userDAO.checkIfEmailExist(user.getUserEmail())==false) {
 	    		userDAO.insert(user);
 	    		userDAO.insertRole(user);
 	    		return true;

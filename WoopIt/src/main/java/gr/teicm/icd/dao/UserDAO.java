@@ -1,11 +1,8 @@
 package gr.teicm.icd.dao;
 
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import gr.teicm.icd.data.entities.User;
-@Repository
+
 public interface UserDAO {
     
     public void insert(User user);
@@ -26,6 +23,8 @@ public interface UserDAO {
     
     public Boolean checkIfUserNameExist(String userName);
     
+    public Boolean checkIfEmailExist(String eMail);
+    
     public void insertGeoLocation(User user);
     
     public User getGeoLocation(String userName);
@@ -33,4 +32,5 @@ public interface UserDAO {
     public boolean userExists(String keyword);
     
     public List<User> searchUsersByKeyword(String keyword);
+
 }

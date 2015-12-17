@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
-
 import org.springframework.stereotype.Repository;
-
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.dao.*;
+
 @Repository
 public class UserDAOImpl implements UserDAO {
 	
@@ -41,7 +41,6 @@ public class UserDAOImpl implements UserDAO {
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-			
 		} finally {
 			if (conn != null) {
 				try {
@@ -101,6 +100,8 @@ public class UserDAOImpl implements UserDAO {
 			ps.close();
 			return user;
 		} catch (SQLException e) {
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new RuntimeException(e);
 		} finally {
 			if (conn != null) {
@@ -162,6 +163,38 @@ public class UserDAOImpl implements UserDAO {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, userName);
+			ResultSet rs = ps.executeQuery();
+			if (rs.first()) {
+				rs.close();
+				ps.close();
+				return true;
+			}
+			else{
+				rs.close();
+				ps.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} 
+			catch (SQLException e) {}
+			}
+		}
+	}
+	
+	public Boolean checkIfEmailExist(String eMail){
+		
+		String sql = "SELECT * FROM USERS WHERE USER_EMAIL = ?";
+		Connection conn = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, eMail);
 			ResultSet rs = ps.executeQuery();
 			if (rs.first()) {
 				rs.close();
@@ -437,4 +470,5 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 	}
+	
 }

@@ -10,9 +10,9 @@
 		<div class="container">
 			<div class="row centered">
 				<div class="alert alert-danger" role="alert">
-					<h1>Registration failed :(</h1>
+					<h1>Registration failed</h1>
 					<hr>
-					<br/> Please try another username using the <a class="alert-link" href="<c:url value='/user/register'/>">registration form</a> again.
+					<br/>Please try another username or email using the <a class="alert-link" href="<c:url value='/user/register'/>">registration form</a> again.
 				</div>
 			</div>
 			<br>

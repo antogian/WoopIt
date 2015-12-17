@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import gr.teicm.icd.dao.*;
 import gr.teicm.icd.data.entities.User;
 

@@ -1,13 +1,8 @@
 package gr.teicm.icd.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.data.services.*;
@@ -17,9 +12,6 @@ public class GlobalControllerAdvice {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private InboxService inboxService;
 	
 	@ModelAttribute("currentUser")
 	public User getCurrentUser(){
