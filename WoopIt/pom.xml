@@ -10,14 +10,7 @@
 	<developerConnection>scm:git:https://github.com/pror21/WoopIt.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-	
-<distributionManagement>
-	<repository>
-		<id>woopit-releases</id>
-		<url>/WoopIt-Releases</url>
-	</repository>
-</distributionManagement>
-
+  
   <dependencies>
   	<dependency>
   		<groupId>org.springframework</groupId>
@@ -179,6 +172,12 @@
 			</systemPropertyVariables>
 		</configuration>
 	</plugin>
+	<plugin>
+		<artifactId>maven-release-plugin</artifactId>
+		<configuration>
+			<goals>install</goals>
+		</configuration>
+	</plugin> 
    </plugins>
   </build>
 <packaging>war</packaging>
