@@ -40,10 +40,18 @@ public class MessageController {
 		
 		for(int i = 0; i < this.allMessages.size(); i++)
 		{
-			targetUser = this.allMessages.get(i).getSender();
-			if(this.blockedService.isBlocked(currentUser, targetUser))
+			if(allMessages.get(i).isExpired())
 			{
+				this.messageService.deleteMessage(allMessages.get(i));
 				this.allMessages.remove(i);
+			}
+			else
+			{
+				targetUser = this.allMessages.get(i).getSender();
+				if(this.blockedService.isBlocked(currentUser, targetUser))
+				{
+					this.allMessages.remove(i);
+				}
 			}
 		}
 		
@@ -53,13 +61,14 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/home", method=RequestMethod.POST)
-	public void postMessage(@RequestParam("message") String msg, Model model)
+	public void postMessage(@RequestParam("message") String msg, @RequestParam("duration") int dur, Model model)
 	{
 		Message newMessage = new Message();
 		User user = new User();
 		user = this.userService.getUserByName(this.userService.getLoggedInUsername());
 
 		newMessage.setBody(msg);
+		newMessage.setDuration(dur);
 		newMessage.setSender(this.userService.getUserByName(this.userService.getLoggedInUsername()));
 		newMessage.setMessageLatitude(user.getUserLatitude());
 		newMessage.setMessageLongitude(user.getUserLongitude());
