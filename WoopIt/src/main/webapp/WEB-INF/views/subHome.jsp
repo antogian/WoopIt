@@ -3,6 +3,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+
+
 <c:forEach items="${allMessages}" var="message">
 	<div class="well well-sm">
 		<div class="media">
@@ -18,6 +20,8 @@
 				</a> says:
 				<br/>
 				<c:out value="${message.body}" />
+				<br />
+				<!--  <div>Deletion in <span id="expiration"></span> minutes</div>-->
 			</div>
 			<div class="media-body text-right">
 				<a class="btn btn-success btn-sm" href="<c:url value='/like?msgId=${message.id}&like=true' />" role="button"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>

@@ -24,6 +24,8 @@
 
 	<script src="<c:url value='/resources/assets/js/bootstrap.min.js' />"></script>
 	<script src="<c:url value='/resources/assets/js/smoothscroll.js' />"></script>
+	
+
 
 	<script type="text/javascript">
 		var datLength = 0;
@@ -105,6 +107,26 @@
 					<li class="active"><a href="<c:url value='/home' />"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;&nbsp;Enter WoopIt</a>
 					</li>
 				</ol>
+				<div id="currentTime"></div>
+				<script type=text/javascript>
+					(function () {
+    					function checkTime(i) {
+        					return (i < 10) ? "0" + i : i;
+   						 }
+
+   						 function startTime() {
+        					var today = new Date(),
+            				h = checkTime(today.getHours()),
+            				m = checkTime(today.getMinutes()),
+            				s = checkTime(today.getSeconds());
+        					document.getElementById('currentTime').innerHTML = h + ":" + m + ":" + s;
+        					t = setTimeout(function () {
+            					startTime()
+        					}, 500);
+    					}
+    					startTime();
+					})();
+				</script>
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div id="result"></div>
@@ -112,6 +134,17 @@
 					<div class="panel-footer">
 						<form action="<c:url value='/home'/>" method="post">
 							<input id="message" type="text" name="message" class="form-control" placeholder="What are you thinking?">
+							<br/>
+							Delete After:
+							<select name="duration" type="number">
+								<option value=30>30 Seconds</option>
+								<option value=60>1 Minute</option>
+								<option value=180>3 Minutes</option>
+								<option value=300>5 Minutes</option>
+								<option value=600>10 Minutes</option>
+								<option value=1800>30 Minutes</option>
+							</select>
+							<br/>
 							<br/>
 							<input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="Woop It!" />
 						</form>
