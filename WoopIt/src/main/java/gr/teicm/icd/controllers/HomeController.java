@@ -49,6 +49,12 @@ public class HomeController {
 		return "support";
 	}
 	
+	@RequestMapping("/error")
+	public String goError()
+	{
+		return "error";
+	}
+	
 	@RequestMapping(value="/searchResults", method=RequestMethod.POST)
 	public String goSearch(@RequestParam("keyword") String key, Model model)
 	{	
