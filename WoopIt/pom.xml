@@ -4,13 +4,20 @@
   <artifactId>WoopIt</artifactId>
   <version>1.0.1-SNAPSHOT</version>
   
-	<scm>
-		<url>https://github.com/pror21/WoopIt</url>
-		<connection>scm:git:https://github.com/pror21/WoopIt.git</connection>
-		<developerConnection>scm:git:https://github.com/pror21/WoopIt.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
+<scm>
+	<url>https://github.com/pror21/WoopIt</url>
+	<connection>scm:git:https://github.com/pror21/WoopIt.git</connection>
+	<developerConnection>scm:git:https://github.com/pror21/WoopIt.git</developerConnection>
+	<tag>HEAD</tag>
+</scm>
 	
+<distributionManagement>
+	<repository>
+		<id>woopit-releases</id>
+		<url>/WoopIt-Releases</url>
+	</repository>
+</distributionManagement>
+
   <dependencies>
   	<dependency>
   		<groupId>org.springframework</groupId>
