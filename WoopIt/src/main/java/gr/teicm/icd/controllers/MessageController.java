@@ -61,7 +61,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/home", method=RequestMethod.POST)
-	public void postMessage(@RequestParam("message") String msg, @RequestParam("duration") int dur, Model model)
+	public String postMessage(@RequestParam("message") String msg, @RequestParam("duration") int dur, Model model)
 	{
 		Message newMessage = new Message();
 		User user = new User();
@@ -77,7 +77,7 @@ public class MessageController {
 		this.messageService.insertMessage(newMessage);
 		this.allMessages = this.messageService.getAllMessages();
 		model.addAttribute("allMessages", this.allMessages);
-		//return "redirect:/home";
+		return "home";
 	}
 	
 	@RequestMapping(value="/like", method=RequestMethod.GET)
