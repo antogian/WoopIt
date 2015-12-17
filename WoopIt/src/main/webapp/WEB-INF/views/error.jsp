@@ -9,10 +9,14 @@
 	<div id="intro">
 		<div class="container">
 			<div class="row centered">
+				<h1>Something went wrong :(</h1>
+				<br/>
 				<div class="alert alert-danger" role="alert">
-					<h1>Registration failed</h1>
-					<hr>
-					<br/>Please try another username or email using the <a class="alert-link" href="<c:url value='/user/register'/>">registration form</a> again.
+					<p><b>Error code:</b> ${pageContext.errorData.statusCode}</p>
+					<p><b>Request URI:</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
+					<p>We have logged this error and a highly skilled team of monkeys will try to fix it ASAP!</p>
+					<br/>
+					<button class="btn btn-default" onclick="history.back()"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>&nbsp;&nbsp;Back to Previous Page</button>
 				</div>
 			</div>
 			<br>

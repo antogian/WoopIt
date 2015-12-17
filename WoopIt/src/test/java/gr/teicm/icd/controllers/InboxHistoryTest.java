@@ -40,6 +40,7 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
+@Transactional
 public class InboxHistoryTest {
 	
 	protected MockMvc mockMvc;

@@ -1,19 +1,10 @@
 package gr.teicm.icd.controllers;
 
 import static org.mockito.Mockito.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-
-import gr.teicm.icd.data.entities.User;
-import gr.teicm.icd.data.services.UserService;
 
 public class UserControllerTest extends UserController {
 	

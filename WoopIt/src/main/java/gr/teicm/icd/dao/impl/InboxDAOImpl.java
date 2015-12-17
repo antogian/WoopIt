@@ -6,20 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 import gr.teicm.icd.dao.InboxDAO;
-import gr.teicm.icd.dao.UserDAO;
 import gr.teicm.icd.data.entities.Inbox;
 import gr.teicm.icd.data.entities.User;
-import gr.teicm.icd.data.services.UserService;
+
 @Repository
 public class InboxDAOImpl implements InboxDAO {
 	
@@ -255,4 +247,5 @@ public class InboxDAOImpl implements InboxDAO {
 			}
 		}
 	}
+	
 }

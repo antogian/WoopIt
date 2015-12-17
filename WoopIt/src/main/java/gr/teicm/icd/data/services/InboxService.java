@@ -1,14 +1,12 @@
 package gr.teicm.icd.data.services;
 
 import java.util.List;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
-
 import gr.teicm.icd.dao.InboxDAO;
-import gr.teicm.icd.dao.MessageDAO;
 import gr.teicm.icd.data.entities.Inbox;
 import gr.teicm.icd.data.entities.User;
+
 @Service
 public class InboxService {
 	

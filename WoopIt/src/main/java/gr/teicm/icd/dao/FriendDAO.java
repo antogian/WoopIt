@@ -14,5 +14,4 @@ public interface FriendDAO {
     
     public List<User> getAllFriends(User currentUser);
     
-	
 }
