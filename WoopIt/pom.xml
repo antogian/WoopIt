@@ -6,8 +6,8 @@
   
 	<scm>
 		<url>https://github.com/pror21/WoopIt</url>
-		<connection>scm:git:https://github.com/pror21/WoopIt.git</connection>
-		<developerConnection>scm:git:https://github.com/pror21/WoopIt.git</developerConnection>
+		<connection>scm:git:https://${env.username}:${env.password}@github.com/pror21/WoopIt.git</connection>
+		<developerConnection>scm:git:https://${env.username}:${env.password}@github.com/pror21/WoopIt.git</developerConnection>
 	</scm>
 	
   <dependencies>
