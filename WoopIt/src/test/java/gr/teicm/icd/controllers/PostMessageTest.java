@@ -78,8 +78,11 @@ public class PostMessageTest {
     public void testIfModelAttributeExists() throws Exception
     {
     	String msg = "Sample Message";
+    	Integer dur = 30;
+    	
         mockMvc.perform(post("/home").with(testSecurityContext())
-        								.param("message", msg))
+        								.param("message", msg)
+        								.param("duration", dur.toString()))
 										.andExpect(status().isOk())
 										.andExpect(model().attributeExists("allMessages"));
     }
@@ -90,8 +93,11 @@ public class PostMessageTest {
     public void testModelAttributeType() throws Exception
     {
     	String msg = "Sample Message";
+    	Integer dur = 30;
+    	
     	mockMvc.perform(post("/home").with(testSecurityContext())
-        									.param("message", msg))
+        									.param("message", msg) 
+        									.param("duration", dur.toString()))
 											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", isA(ArrayList.class)));
     }
@@ -101,12 +107,14 @@ public class PostMessageTest {
     public void testModelAttributeSize() throws Exception
     {
     	String msg = "Sample Message";
-    	
+    	Integer dur = 30;
     	List<Message> allMessages = new ArrayList<>();
+    	
     	allMessages = this.messageService.getAllMessages();
     	
         mockMvc.perform(post("/home").with(testSecurityContext())
-        								.param("message", msg))
+        								.param("message", msg)
+        								.param("duration", dur.toString()))
 										.andExpect(status().isOk())
 										.andExpect(model().attribute("allMessages", hasSize(allMessages.size() + 1)));
     }
@@ -116,8 +124,11 @@ public class PostMessageTest {
     public void testIfModelAttributeIsNull() throws Exception
     {
     	String msg = "Sample Message";
+    	Integer dur = 30;
+    	
     	mockMvc.perform(post("/home").with(testSecurityContext())
-        									.param("message", msg))
+        									.param("message", msg)
+        									.param("duration", dur.toString()))
 											.andExpect(status().isOk())
 											.andExpect(model().attribute("allMessages", notNullValue()));
     }
@@ -127,8 +138,11 @@ public class PostMessageTest {
     public void testIfSampleMessageExists() throws Exception
 	{
 	    String msg = "Sample Message";
+	    Integer dur = 30;
+	    
 		mockMvc.perform(post("/home").with(testSecurityContext())
-										.param("message", msg))
+										.param("message", msg)
+										.param("duration", dur.toString()))
 										.andExpect(status().isOk())
 										.andExpect(model().attribute("allMessages", hasItem(allOf(hasProperty("body", is(msg))))));
 	}
