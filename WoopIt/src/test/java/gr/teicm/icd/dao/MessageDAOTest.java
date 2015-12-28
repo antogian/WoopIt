@@ -120,7 +120,7 @@ public class MessageDAOTest {
     
     @Test
     @WithMockUser("test")
-	public void testIfMessageBodyExistsAfterD()
+	public void testIfMessageBodyExistsAfterDeletion()
 	{
 		Message msg = new Message();
 		User usr = new User();
