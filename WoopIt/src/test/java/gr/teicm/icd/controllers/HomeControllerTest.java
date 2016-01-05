@@ -50,4 +50,10 @@ public class HomeControllerTest {
 		
 	}
 
+	@Test
+	public void ShouldReturnErrorPath() {
+		String expectedPath = "error";
+		String receivedPath = homeController.goError();
+		assertEquals(expectedPath, receivedPath);
+	}
 }

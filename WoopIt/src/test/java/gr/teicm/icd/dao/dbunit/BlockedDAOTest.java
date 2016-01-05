@@ -1,4 +1,4 @@
-package gr.teicm.icd.dao;
+package gr.teicm.icd.dao.dbunit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

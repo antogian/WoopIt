@@ -19,7 +19,7 @@ public class UserService {
 	public Boolean insertUser(User user){
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml")){
 	    	UserDAO userDAO = (UserDAO) context.getBean("userDAO");
-	    	if(userDAO.checkIfUserNameExist(user.getUserName())==false || userDAO.checkIfEmailExist(user.getUserEmail())==false) {
+	    	if(userDAO.checkIfUserNameExist(user.getUserName())==false && userDAO.checkIfEmailExist(user.getUserEmail())==false) {
 	    		userDAO.insert(user);
 	    		userDAO.insertRole(user);
 	    		return true;
