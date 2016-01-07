@@ -3,16 +3,17 @@ package gr.teicm.icd.controllers;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.testSecurityContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.awt.List;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.Filter;
+
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,6 +27,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+import gr.teicm.icd.data.entities.*;
+import gr.teicm.icd.data.services.*;
+import junit.framework.Assert;
+
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 
 @ContextConfiguration(locations = {
@@ -40,9 +47,10 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
+
 @Transactional
-public class InboxViewTest {
-	
+public class AddUserToBlockedAndRemoveTest
+{
 	protected MockMvc mockMvc;
 	
 	@Autowired
@@ -51,61 +59,49 @@ public class InboxViewTest {
 	@Autowired
 	private Filter springSecurityFilterChain;
 	
+	@Autowired
+	private BlockedService blockedService;
+	
+	@Autowired
+	private UserService userService;
+	
     @Before
-    public void setup() {
+    public void setup() 
+    {
         mockMvc = MockMvcBuilders
-	        		.webAppContextSetup(context)
-	        		.addFilters(springSecurityFilterChain)
-	                .build();
+        		.webAppContextSetup(context).addFilters(springSecurityFilterChain)
+                .build();
     }
-	
-	@Test
-	@WithMockUser("panos21")
-	@Transactional
-	@Rollback(true)
-	public void testInboxView() throws Exception {
-        mockMvc.perform(get("/user/inbox")
-	        .with(testSecurityContext()))
-	        .andExpect(status().isOk())
-	        .andExpect(model().attribute("allInbox", hasItem(allOf(hasProperty("body", is("hey")))))
-        );
-
-	}
-	
-	@Test
+    
+    @Test
 	@WithMockUser("lalakis")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDelete() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=true&id=13")
-				.with(testSecurityContext()))
-				.andExpect(status().isOk())
-				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
-		);
-	}
-	
-	@Test
-	@WithMockUser("lalakis")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDeleteWithWrongParameterId() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=true&id=9999")
-				.with(testSecurityContext()))
-				.andExpect(status().isOk())
-				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
-		);
-	}
-	
-	@Test
-	@WithMockUser("test")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDeleteWithWrongParameterDelete() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=xxx&id=13")
-				.with(testSecurityContext()))
-				.andExpect(status().is4xxClientError()
-		);        
-	}
-	
-	
+	public void testIfUserIsBlockedShouldReturnTrue() throws Exception 
+	{
+        mockMvc.perform(get("/viewprofile?name=test12345&friend=false&blocked=true")
+        		.with(testSecurityContext()))
+        		.andExpect(status().isOk());
+        User lalakis = new User();
+        User test12345 = new User();
+        
+        lalakis = userService.getUserByName("lalakis");
+        test12345 = userService.getUserByName("test12345");
+        
+        assertTrue(blockedService.isBlocked(lalakis, test12345));
+    }
+    
+    @Test
+    @WithMockUser("lalakis")
+	public void testIfUserIsRemovedFromBlockedShouldReturnFalse() throws Exception 
+	{
+        mockMvc.perform(get("/viewprofile?name=test12345&friend=true&blocked=false")
+        		.with(testSecurityContext()))
+        		.andExpect(status().isOk());
+        User lalakis = new User();
+        User test12345 = new User();
+        
+        lalakis = userService.getUserByName("lalakis");
+        test12345 = userService.getUserByName("test12345");
+        
+        assertFalse(blockedService.isBlocked(lalakis, test12345));
+    }
 }

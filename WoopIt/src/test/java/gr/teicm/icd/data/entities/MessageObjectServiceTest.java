@@ -371,4 +371,70 @@ public class MessageObjectServiceTest {
 		Assert.assertTrue(msg.getSender().getUserCountry().equals(country));
 	}
 	
+	@Test
+	public void shouldCreateMessageWith5LikesAndReturnMessageWith5Likes()
+	{
+		//Given
+		int messageLikes = 5;
+		//When
+		Message msg = new Message();
+		msg.setMessageLikes(messageLikes);
+		//Then
+		Assert.assertEquals(msg.getMessageLikes(), messageLikes);
+	}
+	
+	@Test
+	public void shouldCreateMessageWith5DisLikesAndReturnMessageWith5DisLikes()
+	{
+		//Given
+		int messageDislikes = 5;
+		//When
+		Message msg = new Message();
+		msg.setMessageDislikes(messageDislikes);
+		//Then
+		Assert.assertEquals(msg.getMessageDislikes(), messageDislikes);
+	}
+	
+	@Test
+	public void shouldCreateMessageWithDurationLessThanZeroAndReturnMessageWithDuration30Seconds() {
+		//Given
+		int duration = 0;
+		//When
+		Message msg = new Message();
+		msg.setDuration(duration);
+		//Then
+		Assert.assertEquals(msg.getExpiration(), System.currentTimeMillis()/1000L+duration, 1000);
+	}
+	
+	@Test
+	public void shouldCreateMessageWithDurationMoreThan1800AndReturnMessageWithDuration1800Seconds() {
+		//Given
+		int duration = 3000;
+		//When
+		Message msg = new Message();
+		msg.setDuration(duration);
+		//Then
+		Assert.assertEquals(msg.getExpiration(), System.currentTimeMillis()/1000L+1800, 1);
+	}
+	
+	@Test
+	public void shouldCreateMessageWithGivenParameters(){
+		String body = "body";
+		Long expiration = 1800L;
+		User sender = new User();
+		sender.setUserName("testUser");
+		
+		Message msg = new Message(body, expiration, sender);
+		Assert.assertEquals(msg.getExpiration(), 1800L, 0);
+		Assert.assertEquals(msg.getBody(), "body");
+		Assert.assertEquals(msg.getSender().getUserName(), "testUser");
+	}
+	
+	@Test
+	public void shouldCreateExpiredMessageAndReturnTue(){
+		Message msg = new Message();
+		msg.setExpiration(0L);
+		Assert.assertTrue(msg.isExpired());
+		
+	}
 }

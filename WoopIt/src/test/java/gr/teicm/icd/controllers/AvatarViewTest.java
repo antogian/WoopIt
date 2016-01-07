@@ -41,7 +41,7 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
         TransactionalTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
 @Transactional
-public class InboxViewTest {
+public class AvatarViewTest {
 	
 	protected MockMvc mockMvc;
 	
@@ -61,51 +61,21 @@ public class InboxViewTest {
 	
 	@Test
 	@WithMockUser("panos21")
-	@Transactional
-	@Rollback(true)
-	public void testInboxView() throws Exception {
-        mockMvc.perform(get("/user/inbox")
+	public void testAvatarViewOfUserPanos21ShouldExpectAttributeProfileAvatarWithPathDefaultPng() throws Exception {
+        mockMvc.perform(get("/user/setavatar")
 	        .with(testSecurityContext()))
 	        .andExpect(status().isOk())
-	        .andExpect(model().attribute("allInbox", hasItem(allOf(hasProperty("body", is("hey")))))
+	        .andExpect(request().attribute("profileAvatar", "default.png")
         );
-
 	}
 	
 	@Test
-	@WithMockUser("lalakis")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDelete() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=true&id=13")
-				.with(testSecurityContext()))
-				.andExpect(status().isOk())
-				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
-		);
+	@WithMockUser("panos21")
+	public void testRemoveAvatarOfUserPanos21ShouldExpectAttributeProfileAvatarWithPathNull() throws Exception {
+        mockMvc.perform(get("/user/removeavatar")
+	        .with(testSecurityContext()))
+	        .andExpect(status().isOk())
+	        .andExpect(request().attribute("profileAvatar", is(nullValue()))
+        );
 	}
-	
-	@Test
-	@WithMockUser("lalakis")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDeleteWithWrongParameterId() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=true&id=9999")
-				.with(testSecurityContext()))
-				.andExpect(status().isOk())
-				.andExpect(model().attribute("allInbox", is(emptyCollectionOf(List.class)))
-		);
-	}
-	
-	@Test
-	@WithMockUser("test")
-	@Transactional
-	@Rollback(true)
-	public void testInboxDeleteWithWrongParameterDelete() throws Exception {
-		mockMvc.perform(get("/user/inbox?delete=xxx&id=13")
-				.with(testSecurityContext()))
-				.andExpect(status().is4xxClientError()
-		);        
-	}
-	
-	
 }

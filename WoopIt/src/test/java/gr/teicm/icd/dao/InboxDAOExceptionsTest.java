@@ -4,6 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import javax.servlet.Filter;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -32,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.*;
 
+import gr.teicm.icd.dao.impl.InboxDAOImpl;
 import gr.teicm.icd.data.entities.*;
 import gr.teicm.icd.data.services.*;
 
@@ -59,7 +63,7 @@ import org.springframework.security.test.context.support.WithSecurityContextTest
 //@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 //@Transactional
 
-public class MessageDAOTest {
+public class InboxDAOExceptionsTest {
 
 	protected MockMvc mockMvc;
 	
@@ -70,10 +74,10 @@ public class MessageDAOTest {
 	private Filter springSecurityFilterChain;
 	
 	@Autowired
-	private MessageService messageService;
+	private InboxDAOImpl inboxDAOImpl;
 	
-	@Autowired
-	private UserService UserService;
+	@Rule
+    public ExpectedException thrown = ExpectedException.none();
 	
     @Before
     public void setup() 
@@ -84,95 +88,61 @@ public class MessageDAOTest {
                 .build();
     }
 	
-    @Test
-    @WithMockUser("test")
-	public void testIfMessageBodyExistsAfterInsertion()
-	{
-		Message msg = new Message();
-		User usr = new User();
-		
-		usr = this.UserService.getUserByName(this.UserService.getLoggedInUsername());
-		msg.setSender(usr);
-		msg.setBody("Sample Message for Testing Purposes");
-		msg.setDuration(30);
-		msg.setMessageLongitude(usr.getUserLongitude());
-		msg.setMessageLatitude(usr.getUserLatitude());
-		msg.setMessageRadius(usr.getUserRadius());
-		
-		this.messageService.insertMessage(msg);
-		
-		List<Message> allMessages = new ArrayList<>();
-		allMessages = this.messageService.getAllMessages();
-		
-		Integer i = 0;
-		Boolean doesMessageBodyExist = false;
-		while(i < allMessages.size())
-		{
-			if(allMessages.get(i).getBody().equals(msg.getBody()))
-			{
-				doesMessageBodyExist = true;
-			}
-			i++;
-		}
-		
-		Assert.assertTrue(doesMessageBodyExist);
-	}
+    @Test(expected = Exception.class)
+    public void testGetInboxWithNonExistedUserShouldExpectException() {
+    	User user = new User();
+    	user.setUserName("null");
+    	inboxDAOImpl.getInbox(user);
+    	thrown.expect(SQLException.class);
+    }
     
-    @Test
-    @WithMockUser("test")
-	public void testIfMessageBodyExistsAfterInsertionWithRadiusOver100Meters()
-	{
-		Message msg = new Message();
-		User usr = new User();
-		
-		usr = this.UserService.getUserByName(this.UserService.getLoggedInUsername());
-		msg.setSender(usr);
-		msg.setBody("Sample Message for Testing Purposes");
-		msg.setDuration(30);
-		msg.setMessageLongitude(usr.getUserLongitude());
-		msg.setMessageLatitude(usr.getUserLatitude());
-		msg.setMessageRadius(200);
-		
-		this.messageService.insertMessage(msg);
-		
-		List<Message> allMessages = new ArrayList<>();
-		allMessages = this.messageService.getAllMessages();
-		
-		Integer i = 0;
-		Boolean doesMessageBodyExist = false;
-		while(i < allMessages.size())
-		{
-			if(allMessages.get(i).getBody().equals(msg.getBody()))
-			{
-				doesMessageBodyExist = true;
-			}
-			i++;
-		}
-		
-		Assert.assertTrue(doesMessageBodyExist);
-	}
+    @Test(expected = Exception.class)
+    public void testInsertInboxWithNonExistedMessageShouldExpectException() {
+    	Inbox pm = new Inbox();
+    	User receiver = new User();
+    	receiver.setUserId(null);
+    	receiver.setUserName("null");
+    	User sender = new User();
+    	sender.setUserId(null);
+    	sender.setUserName("null");
+    	pm.setReceiverUser(receiver);
+    	pm.setSenderUser(sender);
+    	inboxDAOImpl.insertInbox(pm);
+    	thrown.expect(SQLException.class);
+    }
     
-    @Test
-    @WithMockUser("test")
-	public void testIfMessageBodyExistsAfterDeletion()
-	{
-		Message msg = new Message();
-		User usr = new User();
-		
-		usr = this.UserService.getUserByName(this.UserService.getLoggedInUsername());
-		msg.setSender(usr);
-		msg.setBody("Sample Message for Testing Purposes");
-		msg.setDuration(600);
-		msg.setMessageLongitude(usr.getUserLongitude());
-		msg.setMessageLatitude(usr.getUserLatitude());
-		msg.setMessageRadius(usr.getUserRadius());
-		Integer totalMessages = this.messageService.getAllMessages().size();
-		
-		this.messageService.insertMessage(msg);
-		this.messageService.deleteMessage(this.messageService.getAllMessages().get(0));
-
-		Assert.assertTrue(totalMessages == this.messageService.getAllMessages().size());
-	}
-	
+    @Test(expected = Exception.class)
+    public void testGetHistoryWithNonExistedUserShouldExpectException() {
+    	User user = new User();
+    	user.setUserName("null");
+    	inboxDAOImpl.getHistory(user);
+    	thrown.expect(SQLException.class);
+    }
+    
+    @Test(expected = Exception.class)
+    public void testGetNewInboxQuantityWithNonExistedUserShouldExpectException() {
+    	User user = new User();
+    	user.setUserName("null");
+    	inboxDAOImpl.getNewInboxQuantity(user);
+    	thrown.expect(SQLException.class);
+    }
+    
+    @Test(expected = Exception.class)
+    public void testDeleteInboxWithNonExistedMessageShouldExpectException() {
+    	User user = new User();
+    	user.setUserName("null");
+    	inboxDAOImpl.deleteInbox(null, user);
+    	thrown.expect(SQLException.class);
+    }
+    
+    @Test(expected = Exception.class)
+    public void testResetNewInboxQuantityWithNonExistedMessageShouldExpectException() {
+    	User user = new User();
+    	user.setUserName("null");
+    	inboxDAOImpl.resetNewInboxQuantity(user);
+    	thrown.expect(SQLException.class);
+    }
+    
+    
 }
 
